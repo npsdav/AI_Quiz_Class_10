@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Project Cycle Quiz – Class 10 (417)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#000000;           /* Pure black for max contrast */
+      --card:#0f0f0f;         /* Very dark gray */
+      --text:#ffffff;         /* Pure white text */
+      --muted:#d1d5db;        /* Light gray */
+      --accent:#38bdf8;       /* Sky blue */
+      --green:#16a34a;        /* Bright green */
+      --red:#dc2626;          /* Bright red */
+      --border:#2d2d2d;       /* Dark border */
+      --option-bg:#111111;    /* option background */
+      --option-hover:#1a1a1a; /* option hover */
+      --focus:#f59e0b;        /* amber focus ring */
+    }
+    *{box-sizing:border-box}
+    body{margin:0; background:var(--bg); color:var(--text); font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+    header{
+      position:sticky; top:0; z-index:10; background:#000; border-bottom:1px solid var(--border);
+    }
+    .wrap{max-width:880px; margin:0 auto; padding:16px}
+    .title{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+    .title h1{margin:0; font-size:clamp(1.2rem,2.5vw,1.6rem)}
+    .meta{display:flex; gap:16px; align-items:center; flex-wrap:wrap}
+    .pill{background:var(--card); border:1px solid var(--border); border-radius:999px; padding:8px 12px; font-weight:600}
+    .score{font-weight:700}
+
+    main{max-width:880px; margin:0 auto; padding:20px 16px}
+    .card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px}
+    .qhead{display:flex; align-items:flex-start; justify-content:space-between; gap:12px}
+    .qtext{font-size:1.05rem; font-weight:700}
+    .qindex{color:var(--muted)}
+
+    .options{display:grid; grid-template-columns:1fr; gap:12px; margin-top:14px}
+    @media(min-width:640px){ .options{grid-template-columns:1fr 1fr} }
+    .option{background:var(--option-bg); color:var(--text); border:2px solid var(--border); border-radius:12px; padding:14px; text-align:left; cursor:pointer; font-weight:600; transition:background .15s ease, border-color .15s ease, transform .06s ease}
+    .option:hover{background:var(--option-hover)}
+    .option:focus-visible{outline:3px solid var(--focus); outline-offset:3px}
+    .option.correct{background:#052e14; border-color:var(--green)} /* dark green bg for contrast */
+    .option.wrong{background:#3a0b0b; border-color:var(--red)}       /* dark red bg for contrast */
+    .option.disabled{opacity:.75; pointer-events:none}
+
+    .controls{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:16px; flex-wrap:wrap}
+    .btn{background:var(--accent); color:#000; border:none; border-radius:10px; padding:12px 16px; font-weight:700; cursor:pointer; box-shadow:0 8px 24px rgba(56,189,248,.25)}
+    .btn.secondary{background:#222; color:#fff; border:1px solid var(--border)}
+    .btn.green{background:var(--green); color:#fff}
+    .btn.red{background:var(--red); color:#fff}
+
+    .timer{display:flex; align-items:center; gap:8px; font-weight:700}
+    .timer .dot{width:10px; height:10px; border-radius:50%; background:var(--accent)}
+    .bar{position:relative; height:10px; border-radius:999px; background:#0a0a0a; border:1px solid var(--border); overflow:hidden}
+    .bar span{position:absolute; left:0; top:0; bottom:0; width:0; background:linear-gradient(90deg, var(--accent), #22c55e)}
+
+    .result{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; text-align:center}
+    .result h2{margin:0 0 8px}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap title">
+      <h1>AI Project Cycle Quiz</h1>
+      <div class="meta">
+        <span class="pill">Class 10 • Subject 417</span>
+        <span class="pill" id="scorePill">Score: <span id="scoreVal">0</span> / 10</span>
+        <span class="pill" id="progressPill">Q <span id="qNow">1</span> / 10</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="card" id="quizCard" aria-live="polite"></div>
+
+    <div class="result" id="resultCard" style="display:none">
+      <h2>Test Complete</h2>
+      <p class="muted">Your score: <strong id="finalScore">0/10</strong></p>
+      <div class="controls" style="justify-content:center; margin-top:12px">
+        <button class="btn green" id="againBtn">Take Another Test</button>
+        <button class="btn red" id="endBtn">End Test</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // ===== Configuration =====
+    const QUESTIONS_PER_TEST = 10;
+    const SECONDS_PER_QUESTION = 30; // you can change this
+
+    // ===== Question Bank (40) =====
+    const BANK = [
+      {q:"Which is the <strong>first stage</strong> of the AI Project Cycle?", options:["Data Acquisition","Problem Scoping","Modelling","Evaluation"], answer:1},
+      {q:"The AI Project Cycle primarily contains how many core stages?", options:["3","4","5","6"], answer:2},
+      {q:"Which stage focuses on <em>defining stakeholders, goals and constraints</em>?", options:["Data Exploration","Problem Scoping","Evaluation","Deployment"], answer:1},
+      {q:"The 4Ws Problem Canvas stands for:", options:["Who, What, Where, Why","Who, When, What, Why","Who, What, When, Where","What, Why, When, How"], answer:0},
+      {q:"In the 4Ws Canvas, the <strong>Who</strong> block identifies:", options:["Data sources","Algorithms","Stakeholders affected by the problem","Hardware requirements"], answer:2},
+      {q:"Which stage involves <strong>collecting reliable and relevant data</strong>?", options:["Evaluation","Data Acquisition","Modelling","Problem Scoping"], answer:1},
+      {q:"During Data Acquisition, which of the following is a valid data type?", options:["Text only","Text, images, audio, video","Images only","Numbers only"], answer:1},
+      {q:"Which stage focuses on <strong>summarising, cleaning, and visualising</strong> the data?", options:["Modelling","Data Exploration","Evaluation","Problem Scoping"], answer:1},
+      {q:"Creating and training a Decision Tree model happens in:", options:["Modelling","Evaluation","Problem Scoping","Data Acquisition"], answer:0},
+      {q:"Splitting data into <strong>train</strong> and <strong>test</strong> sets is part of:", options:["Data Exploration","Modelling","Evaluation","Problem Scoping"], answer:2},
+      {q:"Which metric is used for evaluating <strong>classification</strong> models?", options:["Mean Absolute Error","Precision & Recall","RMSE","R^2"], answer:1},
+      {q:"The <strong>Why</strong> block in 4Ws helps to:", options:["Pick algorithms","Identify benefits and impact of solving the problem","Collect data","Deploy the model"], answer:1},
+      {q:"A <strong>problem statement template</strong> is used to:", options:["Write code","Condense 4Ws insights into a clear statement","Store datasets","Design UI"], answer:1},
+      {q:"Which stage often uses graphs like bar charts or histograms?", options:["Data Exploration","Modelling","Evaluation","Data Acquisition"], answer:0},
+      {q:"In evaluation, <strong>Accuracy</strong> is best defined as:", options:["TP/(TP+FP)","TP/(TP+FN)","(TP+TN)/(TP+FP+FN+TN)","FP/(TP+FP)"], answer:2},
+      {q:"The <strong>Confusion Matrix</strong> is used to evaluate:", options:["Regression models","Classification models","Clustering models","Rule-based systems only"], answer:1},
+      {q:"Which term means the model performs well on training data but poorly on new data?", options:["Generalisation","Underfitting","Overfitting","Normalization"], answer:2},
+      {q:"Which is an example of a <strong>supervised learning</strong> algorithm commonly taught in Class 10?", options:["K-Means","Decision Tree","DBSCAN","Apriori"], answer:1},
+      {q:"Valid sources for Data Acquisition include:", options:["Surveys and sensors","Random guesses","Only paid datasets","Only social media"], answer:0},
+      {q:"One goal of Problem Scoping is to link the project to:", options:["Sustainable Development Goals (SDGs)","Only hardware lists","Only software licenses","None of the above"], answer:0},
+      {q:"The AI Project Cycle is best described as:", options:["A one-time linear process","An iterative framework","Only for experts","A hardware checklist"], answer:1},
+      {q:"During Modelling, you should choose algorithms based on:", options:["Random choice","Problem type and data characteristics","Font styles","GPU brand"], answer:1},
+      {q:"In supervised learning, <strong>classification vs regression</strong> differs by:", options:["Inputs used","Type of output (categories vs continuous values)","Who collects data","How visualisations look"], answer:1},
+      {q:"Handling missing values usually belongs to:", options:["Data Exploration","Problem Scoping","Evaluation","Deployment"], answer:0},
+      {q:"Bias in AI systems often arises when:", options:["Training data is not representative","We use charts","We split data","We write comments"], answer:0},
+      {q:"<strong>Precision</strong> is defined as:", options:["TP/(TP+FN)","(TP+TN)/(Total)","TP/(TP+FP)","FP/(TP+FN)"], answer:2},
+      {q:"<strong>Recall</strong> is defined as:", options:["TP/(TP+FN)","TP/(TP+FP)","FP/(TP+FN)","TN/(TN+FP)"], answer:0},
+      {q:"The <strong>F1 Score</strong> is:", options:["Arithmetic mean of precision and recall","Harmonic mean of precision and recall","Geometric mean of accuracy","A loss function"], answer:1},
+      {q:"The purpose of a <strong>train–test split</strong> is to:", options:["Improve UI","Fairly evaluate model performance on unseen data","Collect more data","Increase training speed only"], answer:1},
+      {q:"A <strong>rule-based</strong> approach uses:", options:["Explicit if–then rules","Neural networks","Decision boundaries learned from data","Random forests only"], answer:0},
+      {q:"During Data Acquisition, we must respect:", options:["Only speed","Privacy, permissions, and data ethics","UI themes","Font licensing"], answer:1},
+      {q:"<strong>Error analysis</strong> (understanding mistakes) belongs to:", options:["Evaluation","Problem Scoping","Data Acquisition","Modelling"], answer:0},
+      {q:"Stakeholders are:", options:["Only developers","People affected by or benefiting from the solution","Only teachers","Only customers"], answer:1},
+      {q:"The <strong>Where</strong> block in 4Ws helps to understand:", options:["Model hyperparameters","Deployment cloud vendor","Context and environment of the problem","Programming language"], answer:2},
+      {q:"Common data types for AI projects include:", options:["Only text","Text, numeric tables, images, audio, video","Only audio","Only video"], answer:1},
+      {q:"Modelling includes:", options:["Algorithm selection and training","Only drawing charts","Writing the problem statement","Buying hardware"], answer:0},
+      {q:"Visualisation is used to:", options:["Hide patterns","Uncover patterns and insights in data","Replace evaluation","Skip modelling"], answer:1},
+      {q:"After Evaluation, the typical next action is to:", options:["Publish regardless","Iterate—refine earlier stages based on findings","Delete data","Ignore ethics"], answer:1},
+      {q:"Which stage is most closely associated with <strong>cleaning data</strong>?", options:["Problem Scoping","Data Exploration","Modelling","Evaluation"], answer:1},
+      {q:"Selecting appropriate <strong>features</strong> for the model primarily belongs to:", options:["Modelling/Data Exploration","Problem Scoping","Deployment","None"], answer:0}
+    ];
+
+    // ===== State =====
+    const STATE = {
+      deck: [],        // 10 chosen questions
+      index: 0,        // 0..9
+      score: 0,
+      selected: {},    // q -> selected option index
+      timer: {left: SECONDS_PER_QUESTION, id: null}
+    };
+
+    // ===== Utils =====
+    function shuffle(arr){ for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+    function pickTen(){ const idx=Array.from({length:BANK.length},(_,i)=>i); shuffle(idx); return idx.slice(0,QUESTIONS_PER_TEST).map(i=>BANK[i]); }
+
+    // ===== Rendering =====
+    const quizCard = document.getElementById('quizCard');
+    const scoreVal = document.getElementById('scoreVal');
+    const qNow = document.getElementById('qNow');
+    const resultCard = document.getElementById('resultCard');
+    const finalScore = document.getElementById('finalScore');
+
+    function renderQuestion(){
+      resultCard.style.display='none';
+      quizCard.style.display='block';
+
+      const item = STATE.deck[STATE.index];
+      qNow.textContent = (STATE.index+1);
+
+      quizCard.innerHTML = '';
+      const head = document.createElement('div'); head.className='qhead';
+      const htext = document.createElement('div'); htext.className='qtext'; htext.innerHTML = item.q;
+      const timer = document.createElement('div'); timer.className='timer'; timer.innerHTML = `<span class=dot></span> <span id=timerLabel>${SECONDS_PER_QUESTION}s</span>`;
+      head.appendChild(htext); head.appendChild(timer);
+
+      const bar = document.createElement('div'); bar.className='bar'; bar.setAttribute('aria-label','Time progress'); const fill = document.createElement('span'); fill.id='timeFill'; bar.appendChild(fill);
+
+      const opts = document.createElement('div'); opts.className='options';
+      item.options.forEach((opt,oi)=>{
+        const b=document.createElement('button'); b.className='option'; b.type='button'; b.innerHTML=opt; b.addEventListener('click', ()=>choose(oi));
+        opts.appendChild(b);
+      });
+
+      const ctr = document.createElement('div'); ctr.className='controls';
+      const nextBtn = document.createElement('button'); nextBtn.className='btn secondary'; nextBtn.id='nextBtn'; nextBtn.textContent = (STATE.index === QUESTIONS_PER_TEST-1 ? 'Finish' : 'Next'); nextBtn.disabled = true; nextBtn.addEventListener('click', next);
+      const resetBtn = document.createElement('button'); resetBtn.className='btn'; resetBtn.textContent='Restart Test'; resetBtn.addEventListener('click', restart);
+      ctr.appendChild(resetBtn); ctr.appendChild(nextBtn);
+
+      quizCard.appendChild(head);
+      quizCard.appendChild(bar);
+      quizCard.appendChild(opts);
+      quizCard.appendChild(ctr);
+
+      // start timer
+      startTimer();
+    }
+
+    function startTimer(){
+      clearInterval(STATE.timer.id);
+      STATE.timer.left = SECONDS_PER_QUESTION;
+      updateTimerUI();
+      STATE.timer.id = setInterval(()=>{
+        STATE.timer.left--;
+        updateTimerUI();
+        if(STATE.timer.left<=0){
+          clearInterval(STATE.timer.id);
+          timesUp();
+        }
+      },1000);
+    }
+
+    function updateTimerUI(){
+      const label = document.getElementById('timerLabel'); if(label) label.textContent = STATE.timer.left + 's';
+      const fill = document.getElementById('timeFill'); if(fill) fill.style.width = ((SECONDS_PER_QUESTION-STATE.timer.left)/SECONDS_PER_QUESTION*100)+'%';
+    }
+
+    function choose(oi){
+      // stop timer
+      clearInterval(STATE.timer.id);
+      const item = STATE.deck[STATE.index];
+      const options = quizCard.querySelectorAll('.option');
+      // block double answers
+      if(typeof STATE.selected[STATE.index] !== 'undefined') return;
+      STATE.selected[STATE.index] = oi;
+      const correct = item.answer;
+      options.forEach((el,i)=>{
+        if(i===oi){
+          if(i===correct){ el.classList.add('correct'); STATE.score++; }
+          else{ el.classList.add('wrong'); }
+        }
+        if(i!==oi){ el.classList.add('disabled'); }
+      });
+      scoreVal.textContent = STATE.score;
+      quizCard.querySelector('#nextBtn').disabled=false;
+    }
+
+    function timesUp(){
+      // mark none selected; show which was correct for learning
+      const item = STATE.deck[STATE.index];
+      const correct = item.answer;
+      const options = quizCard.querySelectorAll('.option');
+      options.forEach((el,i)=>{
+        if(i===correct){ el.classList.add('correct'); }
+        else{ el.classList.add('disabled'); }
+      });
+      // no score change; enable next
+      quizCard.querySelector('#nextBtn').disabled=false;
+    }
+
+    function next(){
+      if(STATE.index < QUESTIONS_PER_TEST-1){
+        STATE.index++;
+        renderQuestion();
+      }else{
+        finish();
+      }
+    }
+
+    function finish(){
+      quizCard.style.display='none';
+      resultCard.style.display='block';
+      finalScore.textContent = `${STATE.score}/${QUESTIONS_PER_TEST}`;
+    }
+
+    function restart(){
+      clearInterval(STATE.timer.id);
+      STATE.deck = pickTen();
+      STATE.index = 0; STATE.score = 0; STATE.selected = {};
+      scoreVal.textContent = 0; qNow.textContent = 1;
+      renderQuestion();
+    }
+
+    // End Test just hides everything
+    document.getElementById('againBtn').addEventListener('click', restart);
+    document.getElementById('endBtn').addEventListener('click', ()=>{
+      resultCard.innerHTML = '<h2>Thank you!</h2><p class="muted">You may now close this tab.</p>';
+    });
+
+    // Start
+    restart();
+  </script>
+</body>
+</html>
