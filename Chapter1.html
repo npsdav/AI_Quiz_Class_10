@@ -1,100 +1,87 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI Project Cycle Quiz – Class 10 (417)</title>
+  <title>Chapter 1 • AI Project Cycle – Quiz</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#000000;           /* Pure black for max contrast */
-      --card:#0f0f0f;         /* Very dark gray */
-      --text:#ffffff;         /* Pure white text */
-      --muted:#d1d5db;        /* Light gray */
-      --accent:#38bdf8;       /* Sky blue */
-      --green:#16a34a;        /* Bright green */
-      --red:#dc2626;          /* Bright red */
-      --border:#2d2d2d;       /* Dark border */
-      --option-bg:#111111;    /* option background */
-      --option-hover:#1a1a1a; /* option hover */
-      --focus:#f59e0b;        /* amber focus ring */
+      --bg-1:#0b0f1a; --bg-2:#0a0a0a; --glass:#0f172acc; --border:#283245; --text:#ffffff; --muted:#cdd6e3; --accent:#7c3aed; --accent-2:#22d3ee; --green:#10b981; --red:#ef4444; --amber:#f59e0b; --option:#121826; --option-hover:#1c2435;
     }
     *{box-sizing:border-box}
-    body{margin:0; background:var(--bg); color:var(--text); font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
-    header{
-      position:sticky; top:0; z-index:10; background:#000; border-bottom:1px solid var(--border);
-    }
-    .wrap{max-width:880px; margin:0 auto; padding:16px}
+    body{margin:0; color:var(--text); font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background: radial-gradient(1000px 600px at 10% -10%, #1e293b 0%, transparent 55%),
+                  radial-gradient(800px 500px at 100% 10%, #0ea5e9 0%, transparent 45%),
+                  linear-gradient(180deg, var(--bg-1), var(--bg-2));}
+    header{position:sticky; top:0; z-index:20; backdrop-filter:saturate(160%) blur(8px); background:linear-gradient(180deg,#0f172a88,#0b132288); border-bottom:1px solid var(--border)}
+    .wrap{max-width:960px; margin:0 auto; padding:14px 16px}
     .title{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
-    .title h1{margin:0; font-size:clamp(1.2rem,2.5vw,1.6rem)}
-    .meta{display:flex; gap:16px; align-items:center; flex-wrap:wrap}
-    .pill{background:var(--card); border:1px solid var(--border); border-radius:999px; padding:8px 12px; font-weight:600}
-    .score{font-weight:700}
-
-    main{max-width:880px; margin:0 auto; padding:20px 16px}
-    .card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px}
-    .qhead{display:flex; align-items:flex-start; justify-content:space-between; gap:12px}
-    .qtext{font-size:1.05rem; font-weight:700}
-    .qindex{color:var(--muted)}
-
-    .options{display:grid; grid-template-columns:1fr; gap:12px; margin-top:14px}
-    @media(min-width:640px){ .options{grid-template-columns:1fr 1fr} }
-    .option{background:var(--option-bg); color:var(--text); border:2px solid var(--border); border-radius:12px; padding:14px; text-align:left; cursor:pointer; font-weight:600; transition:background .15s ease, border-color .15s ease, transform .06s ease}
-    .option:hover{background:var(--option-hover)}
-    .option:focus-visible{outline:3px solid var(--focus); outline-offset:3px}
-    .option.correct{background:#052e14; border-color:var(--green)} /* dark green bg for contrast */
-    .option.wrong{background:#3a0b0b; border-color:var(--red)}       /* dark red bg for contrast */
-    .option.disabled{opacity:.75; pointer-events:none}
-
-    .controls{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:16px; flex-wrap:wrap}
-    .btn{background:var(--accent); color:#000; border:none; border-radius:10px; padding:12px 16px; font-weight:700; cursor:pointer; box-shadow:0 8px 24px rgba(56,189,248,.25)}
-    .btn.secondary{background:#222; color:#fff; border:1px solid var(--border)}
-    .btn.green{background:var(--green); color:#fff}
+    .brand{display:flex; align-items:center; gap:12px}
+    .badge{display:inline-flex; align-items:center; gap:8px; background:#0b1322; border:1px solid var(--border); border-radius:999px; padding:8px 12px; font-weight:700}
+    .btn{border:none; border-radius:12px; padding:10px 14px; font-weight:700; cursor:pointer; transition:transform .06s ease, box-shadow .2s ease}
+    .btn:hover{transform:translateY(-1px)}
+    .btn.secondary{background:#0b1322; color:#fff; border:1px solid var(--border)}
     .btn.red{background:var(--red); color:#fff}
-
-    .timer{display:flex; align-items:center; gap:8px; font-weight:700}
-    .timer .dot{width:10px; height:10px; border-radius:50%; background:var(--accent)}
-    .bar{position:relative; height:10px; border-radius:999px; background:#0a0a0a; border:1px solid var(--border); overflow:hidden}
-    .bar span{position:absolute; left:0; top:0; bottom:0; width:0; background:linear-gradient(90deg, var(--accent), #22c55e)}
-
-    .result{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; text-align:center}
-    .result h2{margin:0 0 8px}
+    main{max-width:960px; margin:0 auto; padding:20px 16px}
+    .card{border:1px solid var(--border); border-radius:18px; background:linear-gradient(180deg,var(--glass),#0b132aaa); box-shadow:0 24px 60px rgba(0,0,0,.35)}
+    .card-body{padding:18px}
+    .qhead{display:flex; align-items:flex-start; justify-content:space-between; gap:12px}
+    .qtext{font-size:1.1rem; font-weight:800; letter-spacing:.2px}
+    .pill{background:#0b1322; border:1px solid var(--border); border-radius:999px; padding:8px 12px; font-weight:700}
+    .options{display:grid; grid-template-columns:1fr; gap:12px; margin-top:16px}
+    @media(min-width:640px){ .options{grid-template-columns:1fr 1fr} }
+    .option{background:var(--option); color:var(--text); border:2px solid var(--border); border-radius:14px; padding:14px; text-align:left; cursor:pointer; font-weight:700; transition:background .15s ease, border-color .15s ease, transform .06s ease}
+    .option:hover{background:var(--option-hover)}
+    .option:focus-visible{outline:3px solid var(--amber); outline-offset:3px}
+    .option.correct{background:#052e14; border-color:var(--green)}
+    .option.wrong{background:#3a0b0b; border-color:var(--red)}
+    .option.disabled{opacity:.78; pointer-events:none}
+    .bar{position:relative; height:12px; border-radius:999px; background:#0b1322; border:1px solid var(--border); overflow:hidden; margin-top:12px}
+    .bar span{position:absolute; left:0; top:0; bottom:0; width:0; background:linear-gradient(90deg,var(--amber),var(--green))}
+    .controls{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:16px; flex-wrap:wrap}
     .muted{color:var(--muted)}
+    .result{border:1px solid var(--border); border-radius:18px; background:linear-gradient(180deg,var(--glass),#0b132aaa); box-shadow:0 24px 60px rgba(0,0,0,.35); padding:22px; text-align:center}
   </style>
 </head>
 <body>
   <header>
     <div class="wrap title">
-      <h1>AI Project Cycle Quiz</h1>
-      <div class="meta">
-        <span class="pill">Class 10 • Subject 417</span>
-        <span class="pill" id="scorePill">Score: <span id="scoreVal">0</span> / 10</span>
-        <span class="pill" id="progressPill">Q <span id="qNow">1</span> / 10</span>
+      <div class="brand">
+        <div class="badge">Chapter 1 • AI Project Cycle</div>
+        <div class="badge">Class 10 • Subject 417</div>
+      </div>
+      <div class="badge">Score: <span id="scoreVal">0</span>/10</div>
+      <div class="badge">Q <span id="qNow">1</span>/10</div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap">
+        <button class="btn secondary" id="restartTop">Restart</button>
+        <button class="btn red" id="endTop">End Quiz</button>
       </div>
     </div>
   </header>
 
   <main>
-    <div class="card" id="quizCard" aria-live="polite"></div>
-
+    <div class="card" id="quizCard" aria-live="polite"><div class="card-body"></div></div>
     <div class="result" id="resultCard" style="display:none">
       <h2>Test Complete</h2>
       <p class="muted">Your score: <strong id="finalScore">0/10</strong></p>
-      <div class="controls" style="justify-content:center; margin-top:12px">
-        <button class="btn green" id="againBtn">Take Another Test</button>
-        <button class="btn red" id="endBtn">End Test</button>
+      <div class="controls" style="justify-content:center">
+        <button class="btn secondary" id="homeBtn">Back to Home</button>
+        <button class="btn secondary" id="againBtn">Take Another Test</button>
       </div>
+      <p class="muted" style="margin-top:10px">Built by M365 Copilot • Timer • One‑by‑one flow • Instant scoring • High‑contrast theme</p>
     </div>
   </main>
 
   <script>
-    // ===== Configuration =====
+    // ===== Config =====
     const QUESTIONS_PER_TEST = 10;
-    const SECONDS_PER_QUESTION = 30; // you can change this
+    const SECONDS_PER_QUESTION = 30;
 
-    // ===== Question Bank (40) =====
+    // ===== Question Bank (40) – Chapter 1: AI Project Cycle =====
     const BANK = [
       {q:"Which is the <strong>first stage</strong> of the AI Project Cycle?", options:["Data Acquisition","Problem Scoping","Modelling","Evaluation"], answer:1},
       {q:"The AI Project Cycle primarily contains how many core stages?", options:["3","4","5","6"], answer:2},
@@ -139,39 +126,39 @@
     ];
 
     // ===== State =====
-    const STATE = {
-      deck: [],        // 10 chosen questions
-      index: 0,        // 0..9
-      score: 0,
-      selected: {},    // q -> selected option index
-      timer: {left: SECONDS_PER_QUESTION, id: null}
-    };
+    const STATE = { deck: [], index: 0, score: 0, selected: {}, timer: {left: SECONDS_PER_QUESTION, id: null} };
 
     // ===== Utils =====
-    function shuffle(arr){ for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
-    function pickTen(){ const idx=Array.from({length:BANK.length},(_,i)=>i); shuffle(idx); return idx.slice(0,QUESTIONS_PER_TEST).map(i=>BANK[i]); }
+    function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+    function pickTen(){ const idx=[...Array(BANK.length).keys()]; shuffle(idx); return idx.slice(0,10).map(i=>BANK[i]); }
 
-    // ===== Rendering =====
+    // ===== DOM =====
     const quizCard = document.getElementById('quizCard');
+    const quizBody = quizCard.querySelector('.card-body');
     const scoreVal = document.getElementById('scoreVal');
     const qNow = document.getElementById('qNow');
     const resultCard = document.getElementById('resultCard');
     const finalScore = document.getElementById('finalScore');
 
+    document.getElementById('restartTop').addEventListener('click', restart);
+    document.getElementById('endTop').addEventListener('click', finish);
+    document.getElementById('homeBtn').addEventListener('click', ()=>location.href='index.html');
+    document.getElementById('againBtn').addEventListener('click', restart);
+
+    // ===== Rendering =====
     function renderQuestion(){
       resultCard.style.display='none';
       quizCard.style.display='block';
-
       const item = STATE.deck[STATE.index];
       qNow.textContent = (STATE.index+1);
 
-      quizCard.innerHTML = '';
+      quizBody.innerHTML = '';
       const head = document.createElement('div'); head.className='qhead';
       const htext = document.createElement('div'); htext.className='qtext'; htext.innerHTML = item.q;
-      const timer = document.createElement('div'); timer.className='timer'; timer.innerHTML = `<span class=dot></span> <span id=timerLabel>${SECONDS_PER_QUESTION}s</span>`;
+      const timer = document.createElement('div'); timer.className='pill'; timer.innerHTML = `<strong>Time:</strong> <span id=timerLabel>${SECONDS_PER_QUESTION}s</span>`;
       head.appendChild(htext); head.appendChild(timer);
 
-      const bar = document.createElement('div'); bar.className='bar'; bar.setAttribute('aria-label','Time progress'); const fill = document.createElement('span'); fill.id='timeFill'; bar.appendChild(fill);
+      const bar = document.createElement('div'); bar.className='bar'; const fill = document.createElement('span'); fill.id='timeFill'; bar.appendChild(fill);
 
       const opts = document.createElement('div'); opts.className='options';
       item.options.forEach((opt,oi)=>{
@@ -180,16 +167,16 @@
       });
 
       const ctr = document.createElement('div'); ctr.className='controls';
+      const info = document.createElement('span'); info.className='muted'; info.textContent = 'Tap an option to answer';
       const nextBtn = document.createElement('button'); nextBtn.className='btn secondary'; nextBtn.id='nextBtn'; nextBtn.textContent = (STATE.index === QUESTIONS_PER_TEST-1 ? 'Finish' : 'Next'); nextBtn.disabled = true; nextBtn.addEventListener('click', next);
-      const resetBtn = document.createElement('button'); resetBtn.className='btn'; resetBtn.textContent='Restart Test'; resetBtn.addEventListener('click', restart);
-      ctr.appendChild(resetBtn); ctr.appendChild(nextBtn);
+      const endBtn = document.createElement('button'); endBtn.className='btn red'; endBtn.textContent='End Quiz'; endBtn.addEventListener('click', finish);
+      ctr.appendChild(info); ctr.appendChild(nextBtn); ctr.appendChild(endBtn);
 
-      quizCard.appendChild(head);
-      quizCard.appendChild(bar);
-      quizCard.appendChild(opts);
-      quizCard.appendChild(ctr);
+      quizBody.appendChild(head);
+      quizBody.appendChild(bar);
+      quizBody.appendChild(opts);
+      quizBody.appendChild(ctr);
 
-      // start timer
       startTimer();
     }
 
@@ -200,61 +187,44 @@
       STATE.timer.id = setInterval(()=>{
         STATE.timer.left--;
         updateTimerUI();
-        if(STATE.timer.left<=0){
-          clearInterval(STATE.timer.id);
-          timesUp();
-        }
+        if(STATE.timer.left<=0){ clearInterval(STATE.timer.id); timesUp(); }
       },1000);
     }
-
     function updateTimerUI(){
       const label = document.getElementById('timerLabel'); if(label) label.textContent = STATE.timer.left + 's';
       const fill = document.getElementById('timeFill'); if(fill) fill.style.width = ((SECONDS_PER_QUESTION-STATE.timer.left)/SECONDS_PER_QUESTION*100)+'%';
     }
 
     function choose(oi){
-      // stop timer
       clearInterval(STATE.timer.id);
       const item = STATE.deck[STATE.index];
-      const options = quizCard.querySelectorAll('.option');
-      // block double answers
+      const options = quizBody.querySelectorAll('.option');
       if(typeof STATE.selected[STATE.index] !== 'undefined') return;
       STATE.selected[STATE.index] = oi;
       const correct = item.answer;
       options.forEach((el,i)=>{
-        if(i===oi){
-          if(i===correct){ el.classList.add('correct'); STATE.score++; }
-          else{ el.classList.add('wrong'); }
-        }
+        if(i===oi){ if(i===correct){ el.classList.add('correct'); STATE.score++; } else { el.classList.add('wrong'); } }
         if(i!==oi){ el.classList.add('disabled'); }
       });
       scoreVal.textContent = STATE.score;
-      quizCard.querySelector('#nextBtn').disabled=false;
+      quizBody.querySelector('#nextBtn').disabled=false;
     }
 
     function timesUp(){
-      // mark none selected; show which was correct for learning
       const item = STATE.deck[STATE.index];
       const correct = item.answer;
-      const options = quizCard.querySelectorAll('.option');
-      options.forEach((el,i)=>{
-        if(i===correct){ el.classList.add('correct'); }
-        else{ el.classList.add('disabled'); }
-      });
-      // no score change; enable next
-      quizCard.querySelector('#nextBtn').disabled=false;
+      const options = quizBody.querySelectorAll('.option');
+      options.forEach((el,i)=>{ if(i===correct){ el.classList.add('correct'); } else { el.classList.add('disabled'); } });
+      quizBody.querySelector('#nextBtn').disabled=false;
     }
 
     function next(){
-      if(STATE.index < QUESTIONS_PER_TEST-1){
-        STATE.index++;
-        renderQuestion();
-      }else{
-        finish();
-      }
+      if(STATE.index < QUESTIONS_PER_TEST-1){ STATE.index++; renderQuestion(); }
+      else { finish(); }
     }
 
     function finish(){
+      clearInterval(STATE.timer.id);
       quizCard.style.display='none';
       resultCard.style.display='block';
       finalScore.textContent = `${STATE.score}/${QUESTIONS_PER_TEST}`;
@@ -262,19 +232,11 @@
 
     function restart(){
       clearInterval(STATE.timer.id);
-      STATE.deck = pickTen();
-      STATE.index = 0; STATE.score = 0; STATE.selected = {};
-      scoreVal.textContent = 0; qNow.textContent = 1;
-      renderQuestion();
+      STATE.deck = pickTen(); STATE.index = 0; STATE.score = 0; STATE.selected = {};
+      scoreVal.textContent = 0; qNow.textContent = 1; renderQuestion();
     }
 
-    // End Test just hides everything
-    document.getElementById('againBtn').addEventListener('click', restart);
-    document.getElementById('endBtn').addEventListener('click', ()=>{
-      resultCard.innerHTML = '<h2>Thank you!</h2><p class="muted">You may now close this tab. Bye Bye...!</p>';
-    });
-
-    // Start
+    // Boot
     restart();
   </script>
 </body>
