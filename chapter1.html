@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,6 +45,7 @@
     .muted{color:var(--muted)}
     .result{border:1px solid var(--border); border-radius:18px; background:linear-gradient(180deg,var(--glass),#0b132aaa); box-shadow:0 24px 60px rgba(0,0,0,.35); padding:22px; text-align:center}
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 <body>
   <header>
@@ -72,172 +72,304 @@
         <button class="btn secondary" id="homeBtn">Back to Home</button>
         <button class="btn secondary" id="againBtn">Take Another Test</button>
       </div>
-      <p class="muted" style="margin-top:10px">Built by M365 Copilot • Timer • One‑by‑one flow • Instant scoring • High‑contrast theme</p>
+      <p class="muted" style="margin-top:10px">Developed by: Nirender Prakash Singh, PGT(CS), DAV Public School, Bhagalpur</p>
     </div>
   </main>
 
-  <script>
-    // ===== Config =====
-    const QUESTIONS_PER_TEST = 10;
-    const SECONDS_PER_QUESTION = 30;
+<script>
+  // ===== Config =====
+  const QUESTIONS_PER_TEST = 10;                 // target number of questions per session
+  const SECONDS_PER_QUESTION = 30;               // per-question timer
+  const CSV_URL = 'assets/chapter1_ai_project_cycle.csv'; // <-- set your CSV path
 
-    // ===== Question Bank (40) – Chapter 1: AI Project Cycle =====
-    const BANK = [
-      {q:"Which is the <strong>first stage</strong> of the AI Project Cycle?", options:["Data Acquisition","Problem Scoping","Modelling","Evaluation"], answer:1},
-      {q:"The AI Project Cycle primarily contains how many core stages?", options:["3","4","5","6"], answer:2},
-      {q:"Which stage focuses on <em>defining stakeholders, goals and constraints</em>?", options:["Data Exploration","Problem Scoping","Evaluation","Deployment"], answer:1},
-      {q:"The 4Ws Problem Canvas stands for:", options:["Who, What, Where, Why","Who, When, What, Why","Who, What, When, Where","What, Why, When, How"], answer:0},
-      {q:"In the 4Ws Canvas, the <strong>Who</strong> block identifies:", options:["Data sources","Algorithms","Stakeholders affected by the problem","Hardware requirements"], answer:2},
-      {q:"Which stage involves <strong>collecting reliable and relevant data</strong>?", options:["Evaluation","Data Acquisition","Modelling","Problem Scoping"], answer:1},
-      {q:"During Data Acquisition, which of the following is a valid data type?", options:["Text only","Text, images, audio, video","Images only","Numbers only"], answer:1},
-      {q:"Which stage focuses on <strong>summarising, cleaning, and visualising</strong> the data?", options:["Modelling","Data Exploration","Evaluation","Problem Scoping"], answer:1},
-      {q:"Creating and training a Decision Tree model happens in:", options:["Modelling","Evaluation","Problem Scoping","Data Acquisition"], answer:0},
-      {q:"Splitting data into <strong>train</strong> and <strong>test</strong> sets is part of:", options:["Data Exploration","Modelling","Evaluation","Problem Scoping"], answer:2},
-      {q:"Which metric is used for evaluating <strong>classification</strong> models?", options:["Mean Absolute Error","Precision & Recall","RMSE","R^2"], answer:1},
-      {q:"The <strong>Why</strong> block in 4Ws helps to:", options:["Pick algorithms","Identify benefits and impact of solving the problem","Collect data","Deploy the model"], answer:1},
-      {q:"A <strong>problem statement template</strong> is used to:", options:["Write code","Condense 4Ws insights into a clear statement","Store datasets","Design UI"], answer:1},
-      {q:"Which stage often uses graphs like bar charts or histograms?", options:["Data Exploration","Modelling","Evaluation","Data Acquisition"], answer:0},
-      {q:"In evaluation, <strong>Accuracy</strong> is best defined as:", options:["TP/(TP+FP)","TP/(TP+FN)","(TP+TN)/(TP+FP+FN+TN)","FP/(TP+FP)"], answer:2},
-      {q:"The <strong>Confusion Matrix</strong> is used to evaluate:", options:["Regression models","Classification models","Clustering models","Rule-based systems only"], answer:1},
-      {q:"Which term means the model performs well on training data but poorly on new data?", options:["Generalisation","Underfitting","Overfitting","Normalization"], answer:2},
-      {q:"Which is an example of a <strong>supervised learning</strong> algorithm commonly taught in Class 10?", options:["K-Means","Decision Tree","DBSCAN","Apriori"], answer:1},
-      {q:"Valid sources for Data Acquisition include:", options:["Surveys and sensors","Random guesses","Only paid datasets","Only social media"], answer:0},
-      {q:"One goal of Problem Scoping is to link the project to:", options:["Sustainable Development Goals (SDGs)","Only hardware lists","Only software licenses","None of the above"], answer:0},
-      {q:"The AI Project Cycle is best described as:", options:["A one-time linear process","An iterative framework","Only for experts","A hardware checklist"], answer:1},
-      {q:"During Modelling, you should choose algorithms based on:", options:["Random choice","Problem type and data characteristics","Font styles","GPU brand"], answer:1},
-      {q:"In supervised learning, <strong>classification vs regression</strong> differs by:", options:["Inputs used","Type of output (categories vs continuous values)","Who collects data","How visualisations look"], answer:1},
-      {q:"Handling missing values usually belongs to:", options:["Data Exploration","Problem Scoping","Evaluation","Deployment"], answer:0},
-      {q:"Bias in AI systems often arises when:", options:["Training data is not representative","We use charts","We split data","We write comments"], answer:0},
-      {q:"<strong>Precision</strong> is defined as:", options:["TP/(TP+FN)","(TP+TN)/(Total)","TP/(TP+FP)","FP/(TP+FN)"], answer:2},
-      {q:"<strong>Recall</strong> is defined as:", options:["TP/(TP+FN)","TP/(TP+FP)","FP/(TP+FN)","TN/(TN+FP)"], answer:0},
-      {q:"The <strong>F1 Score</strong> is:", options:["Arithmetic mean of precision and recall","Harmonic mean of precision and recall","Geometric mean of accuracy","A loss function"], answer:1},
-      {q:"The purpose of a <strong>train–test split</strong> is to:", options:["Improve UI","Fairly evaluate model performance on unseen data","Collect more data","Increase training speed only"], answer:1},
-      {q:"A <strong>rule-based</strong> approach uses:", options:["Explicit if–then rules","Neural networks","Decision boundaries learned from data","Random forests only"], answer:0},
-      {q:"During Data Acquisition, we must respect:", options:["Only speed","Privacy, permissions, and data ethics","UI themes","Font licensing"], answer:1},
-      {q:"<strong>Error analysis</strong> (understanding mistakes) belongs to:", options:["Evaluation","Problem Scoping","Data Acquisition","Modelling"], answer:0},
-      {q:"Stakeholders are:", options:["Only developers","People affected by or benefiting from the solution","Only teachers","Only customers"], answer:1},
-      {q:"The <strong>Where</strong> block in 4Ws helps to understand:", options:["Model hyperparameters","Deployment cloud vendor","Context and environment of the problem","Programming language"], answer:2},
-      {q:"Common data types for AI projects include:", options:["Only text","Text, numeric tables, images, audio, video","Only audio","Only video"], answer:1},
-      {q:"Modelling includes:", options:["Algorithm selection and training","Only drawing charts","Writing the problem statement","Buying hardware"], answer:0},
-      {q:"Visualisation is used to:", options:["Hide patterns","Uncover patterns and insights in data","Replace evaluation","Skip modelling"], answer:1},
-      {q:"After Evaluation, the typical next action is to:", options:["Publish regardless","Iterate—refine earlier stages based on findings","Delete data","Ignore ethics"], answer:1},
-      {q:"Which stage is most closely associated with <strong>cleaning data</strong>?", options:["Problem Scoping","Data Exploration","Modelling","Evaluation"], answer:1},
-      {q:"Selecting appropriate <strong>features</strong> for the model primarily belongs to:", options:["Modelling/Data Exploration","Problem Scoping","Deployment","None"], answer:0}
-    ];
+  // ===== State =====
+  const STATE = {
+    deck: [],            // current shuffled questions
+    index: 0,            // current question position
+    score: 0,            // number of correct answers
+    selected: {},        // {questionIndex: chosenOptionIndex|null (timeout)}
+    timer: { left: SECONDS_PER_QUESTION, id: null },
+    actualCount: 0,      // number of questions loaded in this session
+    loaded: false        // whether CSV has been loaded
+  };
 
-    // ===== State =====
-    const STATE = { deck: [], index: 0, score: 0, selected: {}, timer: {left: SECONDS_PER_QUESTION, id: null} };
+  // ===== Utils =====
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
 
-    // ===== Utils =====
-    function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
-    function pickTen(){ const idx=[...Array(BANK.length).keys()]; shuffle(idx); return idx.slice(0,10).map(i=>BANK[i]); }
+  async function loadCSVDeck(url) {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Failed to load CSV: ' + res.status);
+    const text = await res.text();
 
-    // ===== DOM =====
-    const quizCard = document.getElementById('quizCard');
-    const quizBody = quizCard.querySelector('.card-body');
-    const scoreVal = document.getElementById('scoreVal');
-    const qNow = document.getElementById('qNow');
-    const resultCard = document.getElementById('resultCard');
-    const finalScore = document.getElementById('finalScore');
+    const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+    if (parsed.errors && parsed.errors.length) {
+      console.warn('CSV parse errors:', parsed.errors);
+    }
+    const rows = parsed.data;
 
-    document.getElementById('restartTop').addEventListener('click', restart);
-    document.getElementById('endTop').addEventListener('click', finish);
-    document.getElementById('homeBtn').addEventListener('click', ()=>location.href='index.html');
-    document.getElementById('againBtn').addEventListener('click', restart);
+    // Map rows to normalized question objects
+    const items = rows.map((r, idx) => {
+      const q = (r.q || '').trim();
+      const rawOptions = (r.options || '').split('|').map(s => s.trim()).filter(Boolean);
+      // answer is 0-based in your format
+      const answerIndex = Number(r.answer);
+      const explain = (r.explain || '').trim();
 
-    // ===== Rendering =====
-    function renderQuestion(){
-      resultCard.style.display='none';
-      quizCard.style.display='block';
-      const item = STATE.deck[STATE.index];
-      qNow.textContent = (STATE.index+1);
+      // Basic validation
+      if (!q || rawOptions.length === 0 || Number.isNaN(answerIndex) || answerIndex < 0 || answerIndex >= rawOptions.length) {
+        console.warn(`Skipping invalid row #${idx + 2}:`, r);
+        return null;
+      }
 
-      quizBody.innerHTML = '';
-      const head = document.createElement('div'); head.className='qhead';
-      const htext = document.createElement('div'); htext.className='qtext'; htext.innerHTML = item.q;
-      const timer = document.createElement('div'); timer.className='pill'; timer.innerHTML = `<strong>Time:</strong> <span id=timerLabel>${SECONDS_PER_QUESTION}s</span>`;
-      head.appendChild(htext); head.appendChild(timer);
+      // Shuffle options but keep track of the correct one
+      const optsWithIndex = rawOptions.map((text, oi) => ({ text, oi }));
+      shuffle(optsWithIndex);
+      const shuffledOptions = optsWithIndex.map(o => o.text);
+      const correctShuffledIndex = optsWithIndex.findIndex(o => o.oi === answerIndex);
 
-      const bar = document.createElement('div'); bar.className='bar'; const fill = document.createElement('span'); fill.id='timeFill'; bar.appendChild(fill);
+      return { q, options: shuffledOptions, answer: correctShuffledIndex, explain };
+    }).filter(Boolean);
 
-      const opts = document.createElement('div'); opts.className='options';
-      item.options.forEach((opt,oi)=>{
-        const b=document.createElement('button'); b.className='option'; b.type='button'; b.innerHTML=opt; b.addEventListener('click', ()=>choose(oi));
-        opts.appendChild(b);
-      });
+    // Build deck for this session
+    shuffle(items);
+    const target = Math.min(QUESTIONS_PER_TEST, items.length);
+    STATE.deck = items.slice(0, target);
+    STATE.actualCount = STATE.deck.length;
+    STATE.loaded = true;
+  }
 
-      const ctr = document.createElement('div'); ctr.className='controls';
-      const info = document.createElement('span'); info.className='muted'; info.textContent = 'Tap an option to answer';
-      const nextBtn = document.createElement('button'); nextBtn.className='btn secondary'; nextBtn.id='nextBtn'; nextBtn.textContent = (STATE.index === QUESTIONS_PER_TEST-1 ? 'Finish' : 'Next'); nextBtn.disabled = true; nextBtn.addEventListener('click', next);
-      const endBtn = document.createElement('button'); endBtn.className='btn red'; endBtn.textContent='End Quiz'; endBtn.addEventListener('click', finish);
-      ctr.appendChild(info); ctr.appendChild(nextBtn); ctr.appendChild(endBtn);
+  // ===== DOM =====
+  const quizCard = document.getElementById('quizCard');
+  const quizBody = quizCard.querySelector('.card-body');
+  const scoreVal = document.getElementById('scoreVal');
+  const qNow = document.getElementById('qNow');
+  const resultCard = document.getElementById('resultCard');
+  const finalScore = document.getElementById('finalScore');
 
-      quizBody.appendChild(head);
-      quizBody.appendChild(bar);
-      quizBody.appendChild(opts);
-      quizBody.appendChild(ctr);
+  document.getElementById('restartTop').addEventListener('click', restart);
+  document.getElementById('endTop').addEventListener('click', finish);
+  document.getElementById('homeBtn').addEventListener('click', () => location.href = 'index.html');
+  document.getElementById('againBtn').addEventListener('click', restart);
 
-      startTimer();
+  // ===== Rendering =====
+  function renderQuestion() {
+    if (!STATE.loaded || STATE.actualCount === 0) {
+      quizBody.innerHTML = '<div class="muted">Loading questions…</div>';
+      return;
     }
 
-    function startTimer(){
-      clearInterval(STATE.timer.id);
-      STATE.timer.left = SECONDS_PER_QUESTION;
+    resultCard.style.display = 'none';
+    quizCard.style.display = 'block';
+
+    const item = STATE.deck[STATE.index];
+    if (!item) { finish(); return; }
+
+    qNow.textContent = (STATE.index + 1);
+    quizBody.innerHTML = '';
+
+    // Header
+    const head = document.createElement('div');
+    head.className = 'qhead';
+
+    const htext = document.createElement('div');
+    htext.className = 'qtext';
+    htext.textContent = item.q; // plain text (no HTML)
+
+    const timer = document.createElement('div');
+    timer.className = 'pill';
+    timer.setAttribute('role', 'status');
+    timer.setAttribute('aria-live', 'polite');
+    timer.innerHTML = `<strong>Time:</strong> <span id="timerLabel">${SECONDS_PER_QUESTION}s</span>`;
+    head.appendChild(htext);
+    head.appendChild(timer);
+
+    // Progress bar
+    const bar = document.createElement('div');
+    bar.className = 'bar';
+    const fill = document.createElement('span');
+    fill.id = 'timeFill';
+    bar.appendChild(fill);
+
+    // Options
+    const opts = document.createElement('div');
+    opts.className = 'options';
+    item.options.forEach((opt, oi) => {
+      const b = document.createElement('button');
+      b.className = 'option';
+      b.type = 'button';
+      b.textContent = opt;
+      b.addEventListener('click', () => choose(oi));
+      opts.appendChild(b);
+    });
+
+    // Controls
+    const ctr = document.createElement('div');
+    ctr.className = 'controls';
+    const info = document.createElement('span');
+    info.className = 'muted';
+    info.textContent = 'Tap an option to answer (revision mode: no penalty)';
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'btn secondary';
+    nextBtn.id = 'nextBtn';
+    nextBtn.textContent = (STATE.index === STATE.actualCount - 1 ? 'Finish' : 'Next');
+    nextBtn.disabled = true;
+    nextBtn.addEventListener('click', next);
+
+    const endBtn = document.createElement('button');
+    endBtn.className = 'btn red';
+    endBtn.textContent = 'End Quiz';
+    endBtn.addEventListener('click', finish);
+
+    ctr.appendChild(info);
+    ctr.appendChild(nextBtn);
+    ctr.appendChild(endBtn);
+
+    quizBody.appendChild(head);
+    quizBody.appendChild(bar);
+    quizBody.appendChild(opts);
+    quizBody.appendChild(ctr);
+
+    startTimer();
+  }
+
+  function startTimer() {
+    clearInterval(STATE.timer.id);
+    STATE.timer.left = SECONDS_PER_QUESTION;
+    updateTimerUI();
+    STATE.timer.id = setInterval(() => {
+      STATE.timer.left--;
       updateTimerUI();
-      STATE.timer.id = setInterval(()=>{
-        STATE.timer.left--;
-        updateTimerUI();
-        if(STATE.timer.left<=0){ clearInterval(STATE.timer.id); timesUp(); }
-      },1000);
+      if (STATE.timer.left <= 0) {
+        clearInterval(STATE.timer.id);
+        timesUp();
+      }
+    }, 1000);
+  }
+
+  function updateTimerUI() {
+    const label = document.getElementById('timerLabel');
+    if (label) label.textContent = STATE.timer.left + 's';
+    const fill = document.getElementById('timeFill');
+    if (fill) {
+      const elapsed = Math.max(0, SECONDS_PER_QUESTION - STATE.timer.left);
+      fill.style.width = (elapsed / SECONDS_PER_QUESTION * 100) + '%';
     }
-    function updateTimerUI(){
-      const label = document.getElementById('timerLabel'); if(label) label.textContent = STATE.timer.left + 's';
-      const fill = document.getElementById('timeFill'); if(fill) fill.style.width = ((SECONDS_PER_QUESTION-STATE.timer.left)/SECONDS_PER_QUESTION*100)+'%';
+  }
+
+  function lockOptions() {
+    const options = quizBody.querySelectorAll('.option');
+    options.forEach(btn => btn.disabled = true);
+  }
+
+  function choose(oi) {
+    clearInterval(STATE.timer.id);
+    if (typeof STATE.selected[STATE.index] !== 'undefined') return;
+
+    const item = STATE.deck[STATE.index];
+    const options = quizBody.querySelectorAll('.option');
+    const correct = item.answer;
+
+    STATE.selected[STATE.index] = oi;
+
+    options.forEach((el, i) => {
+      if (i === oi) {
+        if (i === correct) {
+          el.classList.add('correct');
+          STATE.score++;     // revision mode: reward only correct
+        } else {
+          el.classList.add('wrong');
+        }
+      }
+      if (i !== oi) el.classList.add('disabled');
+    });
+
+    // Show explanation if available
+    if (item.explain) {
+      const exp = document.createElement('div');
+      exp.className = 'explain';
+      exp.innerHTML = `<strong>Explanation:</strong> ${item.explain}`;
+      quizBody.appendChild(exp);
     }
 
-    function choose(oi){
-      clearInterval(STATE.timer.id);
-      const item = STATE.deck[STATE.index];
-      const options = quizBody.querySelectorAll('.option');
-      if(typeof STATE.selected[STATE.index] !== 'undefined') return;
-      STATE.selected[STATE.index] = oi;
-      const correct = item.answer;
-      options.forEach((el,i)=>{
-        if(i===oi){ if(i===correct){ el.classList.add('correct'); STATE.score++; } else { el.classList.add('wrong'); } }
-        if(i!==oi){ el.classList.add('disabled'); }
-      });
-      scoreVal.textContent = STATE.score;
-      quizBody.querySelector('#nextBtn').disabled=false;
+    scoreVal.textContent = STATE.score;
+    lockOptions();
+    const nextBtn = quizBody.querySelector('#nextBtn');
+    if (nextBtn) nextBtn.disabled = false;
+  }
+
+  function timesUp() {
+    const item = STATE.deck[STATE.index];
+    if (!item) return;
+    const correct = item.answer;
+    const options = quizBody.querySelectorAll('.option');
+
+    options.forEach((el, i) => {
+      if (i === correct) el.classList.add('correct');
+      else el.classList.add('disabled');
+    });
+
+    // Record timeout to block future selection
+    if (typeof STATE.selected[STATE.index] === 'undefined') {
+      STATE.selected[STATE.index] = null; // timeout/no attempt
     }
 
-    function timesUp(){
-      const item = STATE.deck[STATE.index];
-      const correct = item.answer;
-      const options = quizBody.querySelectorAll('.option');
-      options.forEach((el,i)=>{ if(i===correct){ el.classList.add('correct'); } else { el.classList.add('disabled'); } });
-      quizBody.querySelector('#nextBtn').disabled=false;
+    // Show explanation if available
+    if (item.explain) {
+      const exp = document.createElement('div');
+      exp.className = 'explain';
+      exp.innerHTML = `<strong>Explanation:</strong> ${item.explain}`;
+      quizBody.appendChild(exp);
     }
 
-    function next(){
-      if(STATE.index < QUESTIONS_PER_TEST-1){ STATE.index++; renderQuestion(); }
-      else { finish(); }
-    }
+    lockOptions();
+    const nextBtn = quizBody.querySelector('#nextBtn');
+    if (nextBtn) nextBtn.disabled = false;
+  }
 
-    function finish(){
-      clearInterval(STATE.timer.id);
-      quizCard.style.display='none';
-      resultCard.style.display='block';
-      finalScore.textContent = `${STATE.score}/${QUESTIONS_PER_TEST}`;
-    }
+  function next() {
+    const nextBtn = quizBody.querySelector('#nextBtn');
+    if (nextBtn) nextBtn.disabled = true;
 
-    function restart(){
-      clearInterval(STATE.timer.id);
-      STATE.deck = pickTen(); STATE.index = 0; STATE.score = 0; STATE.selected = {};
-      scoreVal.textContent = 0; qNow.textContent = 1; renderQuestion();
+    if (STATE.index < STATE.actualCount - 1) {
+      STATE.index++;
+      renderQuestion();
+    } else {
+      finish();
     }
+  }
 
-    // Boot
-    restart();
-  </script>
+  function finish() {
+    clearInterval(STATE.timer.id);
+    quizCard.style.display = 'none';
+    resultCard.style.display = 'block';
+    finalScore.textContent = `${STATE.score}/${STATE.actualCount}`;
+  }
+
+  async function restart() {
+    clearInterval(STATE.timer.id);
+    STATE.index = 0;
+    STATE.score = 0;
+    STATE.selected = {};
+    scoreVal.textContent = 0;
+    qNow.textContent = 1;
+
+    try {
+      await loadCSVDeck(CSV_URL);
+      renderQuestion();
+    } catch (e) {
+      quizBody.innerHTML = `<div class="error">Failed to load questions: ${e.message}</div>`;
+    }
+  }
+
+  // Boot
+  restart();
+</script>
 </body>
 </html>
