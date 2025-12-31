@@ -5,61 +5,48 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AI Quiz Revision</title>
 
-  <!-- Basic styling (optional). You can replace with your own CSS file -->
+  <!-- Optional minimal styles; replace with your CSS file if you have one -->
   <style>
-    :root {
-      --bg: #f7f7fb;
-      --card: #ffffff;
-      --text: #222;
-      --muted: #666;
-      --primary: #2a73ff;
-      --secondary: #444;
-      --red: #d23c3c;
-      --green: #2e7d32;
-    }
-    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); }
-    .container { max-width: 840px; margin: 24px auto; padding: 0 16px; }
-    .toolbar { display: flex; gap: 10px; align-items: center; background: var(--card); padding: 12px 16px; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); margin-bottom: 16px; position: sticky; top: 0; z-index: 10; }
-    .toolbar label { font-weight: 600; }
-    .toolbar select { padding: 8px 10px; border-radius: 6px; border: 1px solid #ddd; }
+    :root { --bg:#f7f7fb; --card:#fff; --text:#222; --muted:#666; --primary:#2a73ff; --red:#d23c3c; --green:#2e7d32; }
+    body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:var(--text); }
+    .container { max-width:860px; margin:24px auto; padding:0 16px; }
+    .toolbar { display:flex; gap:8px; align-items:center; background:var(--card); padding:12px 16px; border-radius:10px; box-shadow:0 1px 3px rgba(0,0,0,.06); margin-bottom:16px; position:sticky; top:0; z-index:10; }
+    .toolbar label { font-weight:600; }
+    .toolbar select { padding:8px 10px; border-radius:6px; border:1px solid #ddd; }
 
-    .top-controls { display: flex; gap: 8px; align-items: center; margin: 12px 0; flex-wrap: wrap; }
-    .top-controls .pill { background: var(--card); padding: 6px 10px; border-radius: 999px; border: 1px solid #eee; color: var(--muted); }
+    .top-controls { display:flex; gap:8px; align-items:center; margin:12px 0; flex-wrap:wrap; }
+    .pill { background:#f0f3ff; color:#234; padding:6px 10px; border-radius:999px; border:1px solid #e5e9ff; }
 
-    .card { background: var(--card); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 16px; }
-    .card-body { padding: 16px; }
+    .card { background:var(--card); border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,.06); margin-bottom:16px; }
+    .card-body { padding:16px; }
 
-    .qhead { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 12px; }
-    .qtext { font-size: 1.1rem; font-weight: 600; }
-    .pill { background: #f0f3ff; color: #274; padding: 6px 10px; border-radius: 999px; border: 1px solid #e5e9ff; }
+    .qhead { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:12px; }
+    .qtext { font-size:1.1rem; font-weight:600; }
 
-    .bar { height: 6px; background: #eee; border-radius: 999px; overflow: hidden; margin-bottom: 12px; }
-    #timeFill { display: block; height: 100%; width: 0%; background: var(--primary); }
+    .bar { height:6px; background:#eee; border-radius:999px; overflow:hidden; margin-bottom:12px; }
+    #timeFill { display:block; height:100%; width:0%; background:var(--primary); }
 
-    .options { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 12px 0; }
-    .option { padding: 10px 12px; font-size: 1rem; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; cursor: pointer; text-align: left; }
-    .option:hover { background: #f2f6ff; }
-    .option.disabled { opacity: 0.6; cursor: not-allowed; }
-    .option.correct { border-color: var(--green); background: #e8f5e9; }
-    .option.wrong { border-color: var(--red); background: #fdecea; }
+    .options { display:grid; grid-template-columns:1fr; gap:8px; margin:12px 0; }
+    .option { padding:10px 12px; font-size:1rem; border-radius:8px; border:1px solid #ddd; background:#fafafa; text-align:left; cursor:pointer; }
+    .option:hover { background:#f2f6ff; }
+    .option.disabled { opacity:.6; cursor:not-allowed; }
+    .option.correct { border-color:var(--green); background:#e8f5e9; }
+    .option.wrong { border-color:var(--red); background:#fdecea; }
 
-    .controls { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
-    .btn { padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; cursor: pointer; }
-    .btn.secondary { background: #eef3ff; color: #123; border-color: #d8e2ff; }
-    .btn.red { background: #fff3f3; color: var(--red); border-color: #ffd7d7; }
-    .muted { color: var(--muted); }
+    .controls { display:flex; gap:8px; align-items:center; margin-top:8px; }
+    .btn { padding:8px 12px; border-radius:8px; border:1px solid #ddd; cursor:pointer; }
+    .btn.secondary { background:#eef3ff; border-color:#d8e2ff; }
+    .btn.red { background:#fff3f3; color:var(--red); border-color:#ffd7d7; }
 
-    .explain { margin-top: 10px; padding: 10px 12px; background: #fffbe6; border: 1px solid #ffe58f; border-radius: 8px; }
+    .explain { margin-top:10px; padding:10px 12px; background:#fffbe6; border:1px solid #ffe58f; border-radius:8px; }
 
-    @media (min-width: 640px) {
-      .options { grid-template-columns: 1fr 1fr; }
-    }
+    @media (min-width:640px) { .options { grid-template-columns:1fr 1fr; } }
   </style>
 </head>
 <body>
   <div class="container">
 
-    <!-- Toolbar: chapter selection -->
+    <!-- Toolbar: chapter selection (keys must match your CHAPTER_CSV) -->
     <div class="toolbar">
       <label for="chapterSelect">Chapter:</label>
       <select id="chapterSelect" aria-label="Select chapter">
@@ -71,7 +58,7 @@
       </select>
     </div>
 
-    <!-- Top controls (optional but handy) -->
+    <!-- Top controls (match IDs used by app.js) -->
     <div class="top-controls">
       <button id="restartTop" class="btn">Restart</button>
       <button id="endTop" class="btn red">End Quiz</button>
@@ -83,9 +70,7 @@
 
     <!-- Quiz card -->
     <div id="quizCard" class="card">
-      <div class="card-body">
-        <!-- JS will render question, timer, options, controls here -->
-      </div>
+      <div class="card-body"><!-- JS renders here --></div>
     </div>
 
     <!-- Result card -->
@@ -99,12 +84,13 @@
         </div>
       </div>
     </div>
+
   </div>
 
-  <!-- PapaParse CDN (must be loaded before app.js) -->
+  <!-- PapaParse must be loaded before your app code -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-  <!-- Your app (ES module so it can import chapters.js) -->
+  <!-- Load your app as an ES module so it can import chapters.js -->
   <script type="module" src="js/app.js"></script>
 </body>
 </html>
