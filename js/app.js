@@ -1,5 +1,5 @@
-
 // js/app.js
+
 import { CHAPTER_CSV } from './chapters.js';
 
 // ===== Config =====
@@ -18,10 +18,33 @@ const STATE = {
   csvUrl: CHAPTER_CSV['chapter1_ai_project_cycle'], // default
 };
 
-// Bind chapter selector (ensure <select id="chapterSelect"> exists in HTML)
-document.getElementById('chapterSelect').addEventListener('change', async (e) => {
+// ===== Bind UI =====
+const chapterSelect = document.getElementById('chapterSelect');
+const startBtn = document.getElementById('startQuizBtn');
+
+chapterSelect.addEventListener('change', (e) => {
   STATE.csvUrl = CHAPTER_CSV[e.target.value];
-  await restart(); // reload from chosen chapter
+  // Do NOT start automatically; user must click Start
+});
+
+// NEW: Start button triggers the quiz
+startBtn.addEventListener('click', async () => {
+  // Optionally disable while loading
+  startBtn.disabled = true;
+
+  // Make sure cards are hidden until render
+  document.getElementById('resultCard').style.display = 'none';
+  const quizCard = document.getElementById('quizCard');
+  quizCard.style.display = 'block';
+
+  try {
+    await restart(); // loads CSV and renders first question
+  } catch (err) {
+    const quizBody = quizCard.querySelector('.card-body');
+    quizBody.innerHTML = `<div class="error">Failed to start: ${err.message}</div>`;
+  } finally {
+    startBtn.disabled = false;
+  }
 });
 
 // PapaParse loader — expects CSV schema: q,options,answer,explain
@@ -275,16 +298,16 @@ async function restart() {
   STATE.index = 0;
   STATE.score = 0;
   STATE.selected = {};
-  scoreVal.textContent = 0;
-  qNow.textContent = 1;
 
-  try {
-    await loadCSVDeck(STATE.csvUrl);
-    renderQuestion();
-  } catch (e) {
-    quizBody.innerHTML = `<div class="error">Failed to load questions: ${e.message}</div>`;
-  }
+  // Reset counters
+  document.getElementById('scoreVal').textContent = 0;
+  document.getElementById('qNow').textContent = 1;
+
+  // Load CSV for current selection and render
+  await loadCSVDeck(STATE.csvUrl);
+  renderQuestion();
 }
 
 // Boot
-restart();
+// Enable below to auto-start
+// restart();
