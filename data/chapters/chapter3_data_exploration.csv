@@ -1,0 +1,42 @@
+q,options,answer,explain
+What is data exploration primarily used for?,Cleaning errors|Understanding patterns in data|Building final models|Deploying AI,1,"Data exploration helps understand patterns, trends, and anomalies."
+Which plot is best to see the distribution of a single numeric variable?,Scatter plot|Histogram|Line chart|Pie chart,1,Histograms show frequency distribution of numeric data.
+Which measure represents the middle value of a sorted dataset?,Mean|Median|Mode|Range,1,Median is the middle value when data is ordered.
+Which measure indicates how spread out the data is?,Mean|Variance|Mode|Median,1,Variance measures dispersion around the mean.
+What does a box plot highlight well?,Time trends|Relationships|Outliers and spread|Categories only,2,Box plots show quartiles and potential outliers.
+Which chart best shows relationship between two numeric variables?,Bar chart|Pie chart|Scatter plot|Histogram,2,Scatter plots display relationships and trends between two variables.
+What is the mode?,Average of data|Most frequent value|Middle value|Difference between max and min,1,Mode is the value that appears most often.
+Which step deals with checking missing values?,Modeling|Evaluation|Exploration|Deployment,2,"During exploration, we profile missing values."
+Which term refers to unusually high or low values?,Median|Outliers|Mode|Range,1,Outliers are extreme values that deviate from others.
+What does correlation measure?,Causation|Similarity of categories|Linear relationship strength|Time-based change,2,Correlation quantifies the strength of linear association.
+Which value is sensitive to outliers?,Median|Mode|Mean|Interquartile range,2,Mean can be skewed by extreme values.
+Skewness describes which property?,Central location|Spread|Asymmetry of distribution|Sample size,2,Skewness indicates if data is left or right skewed.
+What is the interquartile range (IQR)?,Q3 - Q1|Mean - Median|Max - Min|Mode - Median,0,IQR is the range between the 75th and 25th percentiles.
+Which plot is suitable for categorical data counts?,Histogram|Bar chart|Scatter plot|Line chart,1,Bar charts display counts for categories.
+What should you do if many values are missing in a column?,Always delete the dataset|Ignore missing values|Assess impact and impute or drop|Convert to text,2,Decide based on importance: impute or remove.
+Data profiling means?,Building models|Summarizing structure and quality|Deploying apps|Encrypting data,1,"Profiling summarizes types, ranges, and completeness."
+Which statistic shows typical central value?,Range|Variance|Mean|IQR,2,Mean is a common measure of central tendency.
+A pie chart is best used for?,Time series|Proportions of categories|Correlation|Distributions,1,Pie charts show proportions among categories.
+Which technique reduces the effect of different scales?,Encoding|Standardization|Visualization|Sampling,1,"Standardization scales features to mean 0, variance 1."
+Normalization commonly rescales values to which range?,-1 to 1|0 to 1|0 to 10|1 to 100,1,Min-max normalization maps data between 0 and 1.
+Which step helps detect duplicate records?,Model training|Data exploration|Deployment|Feature engineering,1,Exploration includes checking duplicates to ensure quality.
+"Which diagram shows minimum, Q1, median, Q3, and maximum?",Histogram|Box plot|Scatter plot|Bar chart,1,Box plots summarize distribution with five-number summary.
+"If correlation is close to 0, it means?",Strong linear relation|No linear relation|Perfect relation|Causation,1,Near-zero correlation suggests weak/no linear relation.
+Which approach helps understand time trends?,Pie chart|Line chart|Bar chart|Box plot,1,Line charts show changes over time.
+What does a scatter plot point represent?,A category|A single data record with two values|An average|A frequency bin,1,"Each point corresponds to paired values (x,y)."
+Which term refers to converting text labels into numbers?,Visualization|Encoding|Scaling|Sampling,1,Encoding maps categories to numeric codes.
+Which summary is NOT part of the five-number summary?,Minimum|Median|Mean|Maximum,2,"Five-number summary uses min, Q1, median, Q3, max (not mean)."
+Which plot quickly shows frequency of categories like grades?,Box plot|Bar chart|Scatter plot|Histogram,1,Bar charts show category frequencies.
+What is a data dictionary?,A list of model results|Documentation of fields and meanings|An algorithm|A chart type,1,"It describes variables, types, and allowed values."
+What is the range of a dataset?,Mean value|Difference between max and min|Median value|Sum of values,1,Range measures spread from min to max.
+Which chart helps detect clusters and patterns?,Line chart|Pie chart|Scatter plot|Box plot,2,Scatter plots can reveal clusters and patterns.
+What does missing completely at random (MCAR) imply?,Depends on a variable|Unrelated to any variable|Due to data entry|Caused by outliers,1,MCAR means missingness is independent of data.
+"When exploring text data, which quick measure is useful?",Word count|Variance|IQR|Correlation,0,Word count indicates length or verbosity of text.
+Which visual compares multiple categories over time?,Stacked bar chart|Pie chart|Box plot|Scatter plot,0,Stacked bars show category parts across time.
+Which statistic is robust to outliers?,Mean|Median|Variance|Standard deviation,1,Median is less influenced by extreme values.
+What does a heatmap commonly display in exploration?,Raw images|Correlation matrix|Audio levels|Text paragraphs,1,Heatmaps visualize correlations between variables.
+What is standard deviation?,Square of mean|Square root of variance|Median minus mean|Maximum minus minimum,1,"It is the square root of variance, showing spread."
+Which first step is typical in EDA?,Choose model|Plot graphs and compute summaries|Deploy app|Write report,1,EDA begins with summaries and visualizations.
+"If data is right-skewed, which is true?",Mean < Median|Mean > Median|Mean = Median|No relation,1,Right skew pulls the mean to the right (larger).
+Which chart is NOT suitable for showing proportions?,Pie chart|Stacked bar chart|Histogram|Doughnut chart,2,"Histograms show numeric distributions, not category proportions."
+Why is EDA important before modeling?,"It guarantees 100% accuracy|It reveals structure, issues, and insights|It replaces training|It handles deployment",1,"EDA uncovers patterns, quality issues, and guides modeling."

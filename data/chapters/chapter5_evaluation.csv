@@ -1,0 +1,41 @@
+q,options,answer,explain
+What is the main purpose of model evaluation?,Improve data quality|Measure model performance|Collect more data|Deploy model,1,Evaluation measures how well the model performs on unseen data.
+Which dataset is used for final evaluation?,Training set|Testing set|Validation set|Sample set,1,Testing data checks model’s true performance.
+Accuracy is mainly used for which task?,Regression|Clustering|Classification|Association,2,Accuracy measures correctness of classification predictions.
+Which metric measures error in regression?,Precision|Recall|MSE|Accuracy,2,Mean Squared Error measures regression error.
+Precision is defined as?,TP/(TP+FP)|TP/(TP+FN)|Correct predictions/Total predictions|TN/(TN+FP),0,Precision measures correctness of positive predictions.
+Recall is defined as?,TP/(TP+FP)|TP/(TP+FN)|TN/(TN+FN)|(TP+TN)/(Total),1,Recall measures ability to find all positive cases.
+F1-score is the harmonic mean of?,Accuracy & Recall|Precision & Recall|Precision & Error|MSE & RMSE,1,F1 balances precision and recall.
+A confusion matrix is used for?,Regression|Classification|Clustering|Sampling,1,Confusion matrix evaluates classification results.
+Which value in confusion matrix represents correctly predicted positives?,TP|FP|TN|FN,0,TP are actual and predicted positives.
+Which value indicates false alarms?,TP|FP|TN|FN,1,FP are incorrect positive predictions.
+Which curve is used to evaluate binary classifiers?,Bar chart|ROC curve|Line plot|Pie chart,1,ROC curves show true vs false positive rates.
+AUC stands for?,Average Under Curve|Area Under Curve|Actual Utility Coefficient|Algorithm Utility Chart,1,AUC measures overall ROC performance.
+Which value is ideal for a good AUC score?,Close to 0|Close to 0.5|Close to 1|Negative,2,AUC near 1 shows strong performance.
+RMSE is the square root of?,Accuracy|MSE|Precision|Recall,1,RMSE is derived from MSE.
+Which metric is sensitive to outliers?,MAE|Median|RMSE|Recall,2,RMSE magnifies large errors.
+Which error metric uses absolute differences?,MSE|RMSE|MAE|Precision,2,MAE is Mean Absolute Error.
+Which measure evaluates clustering quality?,Silhouette score|Accuracy|Precision|Recall,0,Silhouette score measures cluster separation.
+Cross-validation helps to?,Collect data|Avoid overfitting|Delete errors|Improve storage,1,Cross‑validation tests model on multiple subsets.
+K-fold cross‑validation splits data into?,K equal parts|2 parts|Random sizes|Train-only segments,0,Data is divided into K folds for rotation.
+Bias is defined as?,Error from incorrect assumptions|Error from variance|Random noise|Data corruption,0,Bias refers to model’s simplifying assumptions.
+Variance refers to?,Error from wrong assumptions|Error from sensitivity to training data|Missing values|Model size,1,High variance means model overfits training data.
+Underfitting occurs when?,Model learns noise|Model is too simple|Model performs well|Model is very complex,1,Simple models underfit by missing patterns.
+Which metric is NOT used for regression?,MAE|RMSE|Accuracy|R² score,2,"Accuracy is for classification, not regression."
+What does R² represent?,Prediction error|Explained variance|Data size|Cluster purity,1,R² shows how much variance is explained by model.
+Which is used to compare model predictions visually?,Scatter plot|Pie chart|Tree diagram|Bar chart,0,Scatter plots compare actual vs predicted values.
+Which factor indicates model stability?,High variance|Low variance|High bias|Low accuracy,1,Low variance indicates consistency.
+Which technique checks model performance on unseen data?,Training|Testing|Encoding|Sampling,1,Testing evaluates model generalization.
+A perfect precision score is?,0|0.5|1|Undefined,2,1 means all predicted positives are correct.
+A perfect recall score is?,0|0.5|1|Undefined,2,1 means all actual positives were found.
+Which metric helps when data is imbalanced?,Accuracy|Precision/Recall|Silhouette score|MAE,1,Accuracy fails in imbalanced datasets; precision/recall help.
+What is the denominator for accuracy?,TP+FP|TP+TN+FP+FN|TP+TN|FP+FN,1,Accuracy uses all predictions.
+Which error is worse for medical tests?,False positive|False negative|True positive|True negative,1,False negatives miss actual diseases.
+What does a confusion matrix NOT show?,TP|FP|TN|MSE,3,MSE is a regression metric.
+Which metric punishes large errors more strongly?,MAE|MSE|Accuracy|Precision,1,"MSE squares errors, magnifying them."
+What does RMSE represent?,Root Mean Squared Error|Random Mean Sample Error|Real Model Score Evaluation|Relative Mean Square Efficiency,0,RMSE is standard measure of regression error.
+Which score ranges from -1 to 1?,Accuracy|Precision|Recall|Correlation coefficient,3,Correlation measures linear relationship strength.
+Which method helps detect overfitting?,Using more layers|Checking training vs testing accuracy|Adding noise|Removing validation set,1,A big gap indicates overfitting.
+Which evaluation compares predicted and actual category counts?,Scatter plot|Confusion matrix|Line graph|Histogram,1,Confusion matrix compares classification counts.
+Which value is ideal for MSE?,0|1|High value|Negative,0,Lower error is better.
+Which process ensures fairness of evaluation?,Using only training data|Cross-validation|Ignoring outliers|Reducing data,1,Cross-validation gives reliable evaluation.

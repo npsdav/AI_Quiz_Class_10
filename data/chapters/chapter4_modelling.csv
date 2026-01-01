@@ -1,0 +1,41 @@
+q,options,answer,explain
+What is the goal of modelling in AI?,Collect data|Represent patterns and make predictions|Store information|Clean datasets,1,Modelling helps machines learn patterns and make predictions.
+Which type of model learns from labelled data?,Unsupervised|Supervised|Reinforcement|Clustering,1,Supervised models use labelled data to learn.
+Which model predicts continuous values?,Classification|Regression|Clustering|Association,1,Regression predicts numeric continuous values.
+Which model groups similar data points?,Regression|Classification|Clustering|Prediction,2,Clustering groups similar data without labels.
+Which of these is a supervised learning example?,K-means|Linear Regression|Hierarchical clustering|Apriori algorithm,1,Linear regression uses labelled data.
+Decision trees are used for?,Only classification|Only regression|Both classification and regression|Clustering,2,Decision trees support both tasks.
+Which term refers to splitting data into training and testing?,Sampling|Data acquisition|Model validation|Data mining,2,Validation ensures model quality using unseen data.
+What is overfitting?,Model too simple|Model memorizes training data|Model ignores patterns|Model runs slowly,1,Overfitting occurs when a model memorizes instead of learning.
+Which dataset is used to tune model parameters?,Training set|Testing set|Validation set|Full dataset,2,Validation data tunes hyperparameters.
+Accuracy is a metric used for?,Regression|Classification|Clustering|Sampling,1,Accuracy measures classification correctness.
+Which metric is suitable for regression?,Precision|Recall|Mean Squared Error|Accuracy,2,MSE measures regression error.
+What is the purpose of the testing dataset?,Train model|Tune model|Evaluate final performance|Collect data,2,Testing evaluates generalization ability.
+Which modelling technique uses reward and punishment?,Supervised|Unsupervised|Reinforcement learning|Regression,2,Reinforcement learning learns via rewards.
+Classification output is usually?,Text|Categories|Continuous values|Images,1,Classification predicts categories.
+Regression output is?,Categories|Images|Numbers|Clusters,2,Regression predicts numeric outputs.
+Which of these is NOT a supervised algorithm?,Logistic regression|Decision tree|K-means|Random forest,2,K-means is unsupervised.
+Which step comes before modelling?,EDA|Deployment|Evaluation|Prediction,0,Exploration prepares data for modelling.
+Confusion matrix is used for?,Regression|Clustering|Classification|Sampling,2,A confusion matrix evaluates classification performance.
+What is a model?,Algorithm|Learned representation|Dataset|Report,1,A model is a pattern learned from data.
+Which process trains the model?,Fitting|Predicting|Testing|Cleaning,0,Fitting means training using training data.
+What is generalization?,Training accuracy only|Performance on new unseen data|Only prediction speed|Model size,1,Generalization reflects performance on unseen data.
+Which of these is a loss function?,Confusion matrix|MSE|Accuracy|F1 score,1,MSE calculates error for regression.
+Which model is simplest for linear relationships?,Neural network|Decision tree|Linear regression|K-means,2,Linear regression models linear relations.
+Which chooses best model parameters?,Prediction|Training|Hyperparameter tuning|Deployment,2,Tuning improves performance.
+F1-score combines?,Precision & Recall|Accuracy & Recall|MSE & RMSE|Precision & MSE,0,F1 is harmonic mean of precision and recall.
+Which model mimics human neurons?,Decision tree|Neural network|K-means|Regression,1,Neural networks are inspired by biological neurons.
+Which method selects important features?,Feature extraction|Feature elimination|Feature engineering|All of these,3,All methods help manage features.
+Training data is used to?,Evaluate model|Tune final model|Teach the model|Deploy model,2,Training teaches model patterns.
+Which algorithm is used for classification?,K-means|Logistic regression|DBSCAN|Apriori,1,Logistic regression classifies categories.
+ROC curve evaluates?,Regression|Clustering|Classification|Sampling,2,ROC evaluates classifier performance.
+Which type of problem predicts Yes/No?,Regression|Binary classification|Clustering|Association,1,Binary classification outputs two classes.
+Which is an unsupervised task?,Classification|Regression|Clustering|Prediction,2,Clustering does not require labels.
+What helps avoid overfitting?,More layers|More epochs|Regularization|Bigger model,2,Regularization prevents over-complexity.
+Which method improves performance by combining models?,Boosting|Encoding|Sampling|Scaling,0,Boosting ensembles multiple models.
+Which algorithm is tree‑based?,KNN|Naive Bayes|Random Forest|K-means,2,Random forest uses decision trees.
+Which output does clustering generate?,Labels|Clusters|Numbers|Images,1,Clustering forms groups.
+Model deployment means?,Collecting data|Using model for real predictions|Training again|Cleaning data,1,Deployment uses the model in real life.
+Which term means ‘input features’?,Targets|Labels|Attributes|Predictions,2,Attributes are the model inputs.
+Which evaluates regression performance?,MSE|Accuracy|F1-score|Precision,0,MSE is a common metric for regression.
+What is prediction?,Cleaning data|Model output|Model training|Data exploration,1,Prediction is the model’s final output.
