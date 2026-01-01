@@ -1,423 +1,213 @@
-
-/* ===========================
-   Dark Neon Glass — Bootstrap Overrides (Merged)
-   =========================== */
+/* =========================================================
+   ROOT VARIABLES (Theme-driven, component-agnostic)
+   ========================================================= */
 :root{
-  --bg-1:#0b0f1a;
-  --bg-2:#0a0a0a;
-  --glass:#0f172acc;
-  --border:#283245;
-  --text:#ffffff;
-  --muted:#cdd6e3;
-  --accent:#7c3aed;   /* purple */
-  --accent-2:#22d3ee; /* cyan */
-  --green:#10b981;
-  --red:#ef4444;
-  --amber:#f59e0b;
-  --option:#121826;
-  --option-hover:#1c2435;
+  --bg-1:#020617;
+  --bg-2:#020617;
+  --glass:#0f172a;
+  --border:#1e293b;
+  --text:#e5e7eb;
+  --muted:#94a3b8;
 
-  /* Bootstrap variables (partial) */
-  --bs-body-bg: transparent;
-  --bs-body-color: var(--text);
-  --bs-border-color: var(--border);
-  --bs-border-radius: 1rem;
-  --bs-border-radius-lg: 1.25rem;
-  --bs-border-radius-xl: 1.5rem;
+  --primary:#7c3aed;
 
-  --bs-primary: var(--accent);
-  --bs-secondary: #8b9db5;
-  --bs-success: var(--green);
-  --bs-danger: var(--red);
-  --bs-warning: var(--amber);
+  --option:#0b1322;
+  --option-hover:#111827;
 }
 
-/* Base page background + typography */
-*{box-sizing:border-box}
-html,body{height:100%}
+/* =========================================================
+   BASE
+   ========================================================= */
+*{
+  box-sizing:border-box;
+}
+
 body{
-  margin:0;
+  min-height:100vh;
+  background:linear-gradient(180deg,var(--bg-1),var(--bg-2));
   color:var(--text);
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  /* neon radial + deep gradient */
-  background:
-    radial-gradient(1000px 600px at 10% -10%, #1e293b 0%, transparent 55%),
-    radial-gradient(800px 500px at 100% 10%, #0ea5e9 0%, transparent 45%),
-    linear-gradient(180deg, var(--bg-1), var(--bg-2));
-  /* space for fixed footer */
-  padding-bottom: 56px; /* keeps content clear of fixed footer */
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto;
 }
 
-/* ---------------------------
-   Top toolbar (sticky)
----------------------------- */
-.sticky-top{
-  backdrop-filter: saturate(160%) blur(10px);
-  background: linear-gradient(180deg,#0f172a88,#0b132288) !important;
-  border-bottom: 1px solid var(--border);
-}
-
-/* ---------------------------
-   Cards (Bootstrap .card)
----------------------------- */
-.card{
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 18px; /* rounded */
-  background: linear-gradient(180deg, var(--glass), #0b132aaa);
-  box-shadow: 0 24px 60px rgba(0,0,0,.35);
-}
-.card .card-body{ padding: 18px; }
-
-/* ---------------------------
-   Badges (Bootstrap .badge)
----------------------------- */
-.badge{
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background:#0b1322;
+/* =========================================================
+   REUSABLE GLASS PANEL
+   ========================================================= */
+.glass-panel{
+  background:linear-gradient(180deg,var(--glass),#0b132aaa);
   border:1px solid var(--border);
-  border-radius: 999px; /* pill */
-  padding: 8px 12px;
-  font-weight: 700;
+  border-radius:14px;
+  color:var(--text);
 }
 
-/* Soft override for Bootstrap "text-bg-*" utility badges */
-.text-bg-primary-subtle,
-.text-bg-secondary-subtle{
-  background:#0b1322 !important;
-  color: var(--muted) !important;
-  border:1px solid var(--border) !important;
+/* =========================================================
+   INTRO / HEADER
+   ========================================================= */
+.intro-card{
+  padding:18px 20px;
+  box-shadow:0 18px 40px rgba(0,0,0,.35);
 }
 
-/* ---------------------------
-   Buttons (Bootstrap .btn)
----------------------------- */
-.btn{
-  border: none;
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-weight: 700;
-  transition: transform .06s ease, box-shadow .18s ease, background-color .15s ease, border-color .15s ease;
-  will-change: transform, box-shadow;
+.cbse-badge{
+  background:linear-gradient(180deg,#2563eb,#1e40af);
+  color:#fff;
+  font-weight:700;
+  padding:6px 12px;
+  border-radius:999px;
 }
 
-/* Primary: purple with glow on hover */
-.btn-primary{
-  background: var(--accent);
-  border-color: transparent;
-  color: #fff;
-  box-shadow: 0 0 0px rgba(124,58,237,0.0);
-}
-.btn-primary:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(124,58,237,0.35), 0 0 16px rgba(124,58,237,0.6);
+.chapter-objective{
+  margin:8px 0 10px;
+  padding:10px 14px;
+  border-radius:12px;
+  font-size:.95rem;
+  color:var(--muted);
 }
 
-/* Outline variants: neon borders */
-.btn-outline-primary{
-  color: #9bb7ff;
-  border-color: #58a6ff;
-  background: #0b1322;
-}
-.btn-outline-primary:hover{
-  color: #fff;
-  border-color: #58a6ff;
-  background: #1c2435;
-  box-shadow: 0 10px 22px rgba(88,166,255,0.25), 0 0 16px rgba(88,166,255,0.5);
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+.sticky-top{
+  background:linear-gradient(180deg,var(--glass),#020617ee);
+  backdrop-filter:blur(10px);
 }
 
-.btn-outline-danger{
-  color: #ffb0b0;
-  border-color: var(--red);
-  background: #0b1322;
-}
-.btn-outline-danger:hover{
-  color: #fff;
-  background: #3a0b0b;
-  box-shadow: 0 10px 22px rgba(239,68,68,0.25), 0 0 16px rgba(239,68,68,0.5);
-}
-
-.btn-outline-secondary{
-  color: var(--muted);
-  border-color: var(--border);
-  background: #0b1322;
-}
-.btn-outline-secondary:hover{
-  color: #fff;
-  background: #151c2b;
-  box-shadow: 0 8px 18px rgba(0,0,0,.25);
+/* =========================================================
+   CARDS
+   ========================================================= */
+.card,
+#resultCard,
+.chapter-objective,
+.explain{
+  background:linear-gradient(180deg,var(--glass),#0b132aaa);
+  border:1px solid var(--border);
+  color:var(--text);
 }
 
-/* Danger (filled) for End button if needed */
-.btn-danger{
-  background: var(--red);
-  color: #fff;
-}
-.btn-danger:hover{ transform: translateY(-1px); }
-
-/* ---------------------------
-   Form controls (select, inputs)
----------------------------- */
-.form-select, .form-control{
-  background-color: #21262d !important;
-  color: var(--text) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 12px !important;
-}
-.form-select:focus, .form-control:focus{
-  outline: none;
-  border-color: #58a6ff !important;
-  box-shadow: 0 0 0 .2rem rgba(88,166,255,.25) !important;
-}
-
-/* ---------------------------
-   Option tiles inside quiz
----------------------------- */
+/* =========================================================
+   OPTIONS
+   ========================================================= */
 .options{
   display:grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
+  gap:12px;
 }
-@media (min-width: 640px){
-  .options{ grid-template-columns: 1fr 1fr; }
-}
+
 .option{
-  position: relative;
-  background: var(--option);
-  color: var(--text);
-  border: 2px solid var(--border);
-  border-radius: 14px;
-  padding: 14px;
-  text-align: left;
-  cursor: pointer;
-  font-weight: 700;
-  transition: background .15s ease, border-color .15s ease, transform .06s ease, box-shadow .15s ease;
+  background:var(--option);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px 16px;
+  cursor:pointer;
+  transition:.2s ease;
 }
+
 .option:hover{
-  background: var(--option-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(0,0,0,.25);
+  background:var(--option-hover);
 }
-.option:focus-visible{
-  outline: 3px solid var(--amber);
-  outline-offset: 3px;
+
+.option.selected{
+  box-shadow:0 0 0 2px var(--primary);
 }
+
+/* DARK THEME STATES */
 .option.correct{
-  background: #052e14;
-  border-color: var(--green);
+  background:#052e14;
+  border-color:#16a34a;
 }
+
 .option.wrong{
-  background: #3a0b0b;
-  border-color: var(--red);
-}
-.option.disabled{ opacity:.78; pointer-events:none }
-
-/* Safety: keep options dark even if created with .btn-light */
-.option.btn.btn-light{
-  background: var(--option) !important;
-  color: var(--text) !important;
-  border: 2px solid var(--border) !important;
+  background:#3a0b0b;
+  border-color:#dc2626;
 }
 
-/* ---------------------------
-   Animated gradient glow for selected option
-   --------------------------- */
-
-/* Gradient animation */
-@keyframes glowRotate {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Outer glow ring using ::before */
-.option.selected::before{
-  content:"";
-  position:absolute;
-  inset:-2px; /* slightly outside the border */
-  padding:2px;
-  border-radius:16px;
-  background:
-    conic-gradient(
-      from 0deg,
-      var(--accent),
-      var(--accent-2),
-      var(--green),
-      var(--accent),
-      var(--accent-2)
-    );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  animation: glowRotate 2.5s linear infinite;
-  filter: drop-shadow(0 0 6px rgba(124,58,237,.6))
-          drop-shadow(0 0 10px rgba(34,211,238,.45));
+.option.disabled{
+  opacity:.7;
   pointer-events:none;
 }
 
-/* Inner glow softly tinting the background */
-.option.selected{
-  background: linear-gradient(180deg, #10182a, #0d1324);
-  box-shadow:
-    0 0 0 2px rgba(88,166,255,.25) inset,
-    0 12px 26px rgba(0,0,0,.35);
-  z-index: 1; /* Ensure glow is visible above neighboring elements */
-}
-
-/* ---------------------------
-   Progress bar style (custom)
----------------------------- */
-.bar{
-  position: relative;
-  height: 12px;
-  border-radius: 999px;
-  background: #0b1322;
-  border: 1px solid var(--border);
-  overflow: hidden;
-  margin-top: 12px;
-}
-.bar span{
-  position: absolute;
-  left:0; top:0; bottom:0;
-  width:0;
-  background: linear-gradient(90deg, var(--amber), var(--green));
-}
-
-/* ---------------------------
-   Result card
----------------------------- */
-#resultCard{
+/* =========================================================
+   BUTTONS / BADGES
+   ========================================================= */
+.badge{
   border:1px solid var(--border);
-  border-radius:18px;
-  background: linear-gradient(180deg, var(--glass), #0b132aaa);
-  box-shadow: 0 24px 60px rgba(0,0,0,.35);
-  padding:22px;
-  text-align:center;
-}
-.muted{ color: var(--muted); }
-
-/* Explanation text (inside quiz card) */
-.explain{
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, #0e1528, #0b132a);
-  color: var(--muted);
-}
-.explain strong{ color: #ffffff; }
-
-/* ---------------------------
-   Smooth transitions for display toggles
----------------------------- */
-#quizCard, #resultCard{
-  transition: opacity .2s ease, transform .2s ease;
-}
-#quizCard[style*="display:none"], #resultCard[style*="display:none"]{
-  opacity: 0; transform: translateY(4px);
 }
 
-/* ===========================
-   Always-visible site footer
-   =========================== */
+/* =========================================================
+   FOOTER
+   ========================================================= */
 .site-footer{
-  position: fixed;          /* always visible */
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 100;             /* above cards but below modals */
-  padding: 10px 16px;
-  text-align: center;
-
-  /* High-contrast glass background */
-  background: linear-gradient(180deg, #0b1322ee, #0f172aee);
-  border-top: 1px solid var(--border);
-
-  /* High-contrast text */
-  color: #e6edf3;           /* very light gray on dark */
-  backdrop-filter: saturate(160%) blur(8px);
+  margin-top:32px;
+  padding:14px 0;
+  background:linear-gradient(180deg,var(--glass),#020617);
+  border-top:1px solid var(--border);
+  color:var(--muted);
 }
 
-/* Ensure footer text is crisp and readable */
-.site-footer p {
-  color: #e6edf3;           /* high contrast */
-  letter-spacing: .2px;
-}
-.site-footer strong {
-  color: #ffffff;           /* pure white highlight */
-}
+/* =========================================================
+   LIGHT THEME (Overrides only — no duplication)
+   ========================================================= */
+body.light-theme{
+  --bg-1:#f8fafc;
+  --bg-2:#e5e7eb;
+  --glass:#ffffff;
+  --border:#d1d5db;
+  --text:#0f172a;
+  --muted:#334155;
 
-/* Optional: hover glow for a subtle premium feel */
-.site-footer:hover{
-  box-shadow: 0 -8px 24px rgba(0,0,0,.35);
-}
-
-/* If you also keep a footer message inside the result card, ensure contrast there too */
-#resultCard .footer-note,
-#resultCard .muted {
-  color: #e0e6f2 !important;  /* lighter than var(--muted) for contrast */
-  opacity: 1;
+  --option:#ffffff;
+  --option-hover:#f1f5f9;
 }
 
-/* Optional divider for the in-card footer note */
-#resultCard .footer-divider {
-  height: 1px;
-  margin: 14px 0 8px;
-  background: linear-gradient(90deg, transparent, var(--border), transparent);
-  border: none;
+/* Light panels */
+body.light-theme .glass-panel,
+body.light-theme .card,
+body.light-theme #resultCard,
+body.light-theme .chapter-objective,
+body.light-theme .explain{
+  background:linear-gradient(180deg,#ffffff,#f8fafc);
+  color:#0f172a;
+  border:1px solid #e5e7eb;
 }
 
-/* ===========================
-   High-contrast info text banner
-   =========================== */
-.info-text{
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border-radius: 999px; /* pill */
-  font-weight: 700;
-  letter-spacing: .2px;
-
-  /* Strong contrast on dark */
-  color: #0b0f1a; /* very dark text */
-  background: linear-gradient(180deg, #fef3c7, #fde68a); /* warm amber pill */
-  border: 1px solid #f59e0b; /* amber border */
-
-  /* Soft glow on dark background */
-  box-shadow:
-    0 6px 18px rgba(245, 158, 11, 0.25),
-    0 0 10px rgba(245, 158, 11, 0.35);
+/* Light toolbar */
+body.light-theme .sticky-top{
+  background:linear-gradient(180deg,#ffffffee,#f1f5f9ee)!important;
+  backdrop-filter:none;
 }
 
-/* Dark-mode (cool) variant if desired */
-.info-text.dark{
-  color: #0b0f1a;
-  background: linear-gradient(180deg, #e6f9ff, #c5f1ff); /* cyan pill */
-  border: 1px solid #22d3ee;
-  box-shadow:
-    0 6px 18px rgba(34, 211, 238, 0.25),
-    0 0 10px rgba(34, 211, 238, 0.35);
+/* Light options */
+body.light-theme .option{
+  background:#ffffff;
+  color:#0f172a;
 }
 
-/* Container alignment helpers */
-.info-wrap{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 12px;
+body.light-theme .option.selected{
+  background:#e0f2fe;
+  box-shadow:none;
 }
 
-/* If the info is placed inside a dark card, ensure it isn't dimmed */
-.card .info-text{ opacity: 1; }
+body.light-theme .option.correct{
+  background:#dcfce7;
+  color:#064e3b;
+  border-color:#22c55e;
+}
 
-/* If something else overrides colors, force contrast */
-.info-text,
-.info-text *{ color: inherit !important; }
+body.light-theme .option.wrong{
+  background:#fee2e2;
+  color:#7f1d1d;
+  border-color:#ef4444;
+}
 
-/* --------- END --------- */
+/* =========================================================
+   MOBILE
+   ========================================================= */
+@media(max-width:576px){
+  .intro-desc,
+  .intro-points{
+    display:none;
+  }
+
+  .cbse-badge{
+    font-size:.75rem;
+  }
+}

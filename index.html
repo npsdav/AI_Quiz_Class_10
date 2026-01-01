@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +11,41 @@
   <!-- Your custom overrides -->
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body class="bg-light">
+<body>
   <div class="container py-4">
+<!-- Intro / Instructions -->
+<div class="intro-card mb-3">
+  <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+    <h1 class="h4 mb-0">🤖 AI Revision Quiz</h1>
 
-    <!-- Toolbar: chapter selection + Start -->
+    <!-- CBSE Badge -->
+    <span class="badge cbse-badge">
+      CBSE Class X – AI (417)
+    </span>
+
+    <!-- Theme Toggle -->
+    <button id="themeToggle" class="btn btn-sm btn-outline-secondary ms-auto">
+      🌙 Dark
+    </button>
+  </div>
+
+  <p class="mb-1 intro-desc">
+    Practice chapter-wise questions from <strong>Artificial Intelligence</strong>.
+  </p>
+
+  <!-- Chapter objective (auto updated) -->
+  <div id="chapterObjective" class="chapter-objective">
+    Select a chapter to view learning objectives.
+  </div>
+
+  <ul class="mb-0 small intro-points">
+    <li>10 randomly selected questions per attempt</li>
+    <li>30 seconds per question</li>
+    <li>No negative marking – revision focused</li>
+  </ul>
+</div>
+
+	<!-- Toolbar: chapter selection + Start -->
     <div class="d-flex align-items-center gap-2 bg-white border rounded-3 shadow-sm p-3 sticky-top">
       <label for="chapterSelect" class="fw-semibold mb-0">Chapter:</label>
       <select id="chapterSelect" class="form-select w-auto" aria-label="Select chapter">

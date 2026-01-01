@@ -7,6 +7,25 @@ import { CHAPTER_CSV } from './chapters.js';
 */
 const QUESTIONS_PER_TEST = 10;   // number of questions per run
 const SECONDS_PER_QUESTION = 30; // per-question timer in seconds
+/* ---------------------------
+   Chapter-wise Objectives
+---------------------------- */
+const CHAPTER_OBJECTIVES = {
+  chapter1_ai_project_cycle:
+    "Understand the stages of the AI Project Cycle: Problem Scoping, Data Acquisition, Data Exploration, Modelling, and Evaluation.",
+
+  chapter2_data_acquisition:
+    "Learn different methods of collecting data, types of data, and the importance of data quality in AI systems.",
+
+  chapter3_data_exploration:
+    "Explore data using visualisation techniques, identify patterns, trends, and outliers.",
+
+  chapter4_modelling:
+    "Understand how AI models are trained, types of models, and the concept of training and testing.",
+
+  chapter5_evaluation:
+    "Learn how to evaluate AI models using accuracy, precision, recall, and confusion matrix."
+};
 
 /*
   ---- State ----
@@ -44,6 +63,13 @@ const endTopBtn       = document.getElementById('endTop');
 const homeTopBtn      = document.getElementById('homeTop');
 const homeBottomBtn   = document.getElementById('homeBottom');
 
+// Set default chapter objective on page load
+const initialObjective = document.getElementById("chapterObjective");
+if (initialObjective) {
+  initialObjective.textContent =
+    "📘 Learning Objective: " + CHAPTER_OBJECTIVES['chapter1_ai_project_cycle'];
+}
+
 /*
   ---- Top-level Controls ----
 */
@@ -60,7 +86,13 @@ endTopBtn?.addEventListener('click', finish);
 
 // Chapter selection (do NOT auto-start)
 chapterSelect?.addEventListener('change', (e) => {
-  STATE.csvUrl = CHAPTER_CSV[e.target.value];
+  const chapterKey = e.target.value;
+  STATE.csvUrl = CHAPTER_CSV[chapterKey];
+
+  const objBox = document.getElementById("chapterObjective");
+  if (objBox && CHAPTER_OBJECTIVES[chapterKey]) {
+    objBox.textContent = "📘 Learning Objective: " + CHAPTER_OBJECTIVES[chapterKey];
+  }
 });
 
 // Start Quiz -> show quiz, load CSV, render first question
@@ -357,3 +389,15 @@ async function restart() {
   // Render first question
   renderQuestion();
 }
+
+/* ---------------------------
+   Light / Dark Theme Toggle
+---------------------------- */
+const themeBtn = document.getElementById("themeToggle");
+
+themeBtn?.addEventListener("click", () => {
+  document.body.classList.toggle("light-theme");
+
+  const isLight = document.body.classList.contains("light-theme");
+  themeBtn.textContent = isLight ? "🌞 Light" : "🌙 Dark";
+});
