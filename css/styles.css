@@ -211,3 +211,26 @@ body.light-theme .option.wrong{
     font-size:.75rem;
   }
 }
+
+/* ===========================
+   MOBILE TOOLBAR FIX
+   =========================== */
+@media (max-width: 576px){
+
+  /* Allow wrapping */
+  .sticky-top{
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* Chapter label + select full width */
+  .sticky-top label,
+  .sticky-top .form-select{
+    width: 100% !important;
+  }
+
+  /* Start button full width */
+  #startQuizBtn{
+    width: 100%;
+  }
+}
