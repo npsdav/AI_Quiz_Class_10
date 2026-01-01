@@ -234,3 +234,34 @@ body.light-theme .option.wrong{
     width: 100%;
   }
 }
+
+/* =========================================================
+   TIMER / PROGRESS BAR
+   ========================================================= */
+s
+.bar{
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(148,163,184,0.25); /* muted track */
+  overflow: hidden;
+  margin: 10px 0 14px;
+}
+
+#timeFill{
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    #22c55e,
+    #eab308,
+    #ef4444
+  );
+  transition: width 0.25s linear;
+}
+
+/* Light theme contrast */
+body.light-theme .bar{
+  background: #e5e7eb;
+}
