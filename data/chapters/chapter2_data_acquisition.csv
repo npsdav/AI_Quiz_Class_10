@@ -1,0 +1,41 @@
+q,options,answer,explain
+Which term refers to collecting data from various sources?,Data Acquisition|Data Mining|Data Cleaning|Data Modeling,0,Data acquisition means gathering data.
+What is the first step in the data life cycle?,Data Cleaning|Data Acquisition|Data Visualization|Data Storage,1,Lifecycle begins with acquiring data.
+Which of the following is NOT a data type?,Numerical|Categorical|Text|Hardware,3,Hardware is not a data type.
+Which device is commonly used to collect temperature data?,Keyboard|Thermometer|Microphone|Speaker,1,Thermometer measures temperature.
+A survey is an example of which data collection method?,Sensor-based|Manual|Automated|Machine Learning,1,Surveys involve manual data collection.
+Which of these is an example of unstructured data?,Spreadsheet|Audio recording|Table|Database entry,1,Audio is unstructured.
+Which data type includes true/false values?,Categorical|Boolean|Numerical|Text,1,Boolean stores true/false.
+What do sensors primarily collect?,Random signals|Environmental data|Text data|Images only,1,Sensors capture environmental parameters.
+Which of the following is NOT a sensor?,Camera|Microphone|GPS|Monitor,3,Monitor is an output device.
+What is the purpose of data labeling?,To delete data|To classify data|To store data|To share data,1,Labeling assigns meaning or classes.
+Which file format is commonly used for structured data?,JPEG|CSV|MP4|MP3,1,CSV stores structured rows and columns.
+Which data type includes numbers and quantities?,Text|Boolean|Numerical|Categorical,2,Numerical data includes quantities.
+What does GPS collect?,Temperature|Location|Sound|Heart rate,1,GPS provides location data.
+Which is an example of categorical data?,Height|Age|Blood group|Temperature,2,Blood group has categories.
+Which method automatically collects data without human input?,Manual|Semi-automatic|Automated|Text-based,2,Automated means machine-driven.
+What is the source of primary data?,Already existing data|Books|First-hand collection|Online reports,2,Primary data is first-hand.
+Which is NOT an example of primary data?,Survey responses|Experiment results|Sensor readings|Wikipedia article,3,Wikipedia is secondary data.
+What is the meaning of sampling?,Collecting all data|Deleting data|Choosing a subset|Sorting data,2,Sampling selects part of a population.
+Which term refers to checking data for errors?,Data Cleaning|Data Storage|Data Collection|Data Mining,0,Cleaning removes errors.
+A camera mainly collects which type of data?,Audio|Image|Numerical|Text,1,Cameras record images.
+Which technique is used to collect user opinions?,Survey|Sensor|Camera|GPS,0,Surveys gather opinions.
+Which factor affects the quality of acquired data?,Font style|Data source reliability|Color of sensors|Brand name,1,Reliable sources improve quality.
+What is metadata?,Data about data|Cleaned data|Raw data|Deleted data,0,Metadata describes other data.
+Which category does video data fall under?,Structured|Unstructured|Semi-structured|Mixed,1,Video lacks fixed structure.
+In which method does a machine collect data continuously?,Manual|Automated|Text-based|Human-input,1,Automated systems collect continuously.
+What does a microphone capture?,Text|Sound|Location|Motion,1,Microphones record audio.
+A thermometer generates which type of data?,Image|Temperature|Text|Video,1,It measures temperature values.
+What is data logging?,Deleting data|Collecting and storing over time|Visualizing data|Encrypting data,1,Logging records data continuously.
+Which is an example of semi-structured data?,CSV file|HTML file|Audio file|Image file,1,HTML has some structure but not tabular.
+What is the purpose of a questionnaire?,Store data|Collect responses|Analyze data|Visualize data,1,Questionnaires gather responses.
+Which of the following is digital data?,Handwritten notes|Printed books|Sensor output|Human memory,2,Sensors produce digital data.
+Which term describes irrelevant data collected?,Noise|Signal|Metadata|Feature,0,Noise is unwanted information.
+Which technique helps measure physical movement?,GPS|Accelerometer|Microphone|Camera flash,1,Accelerometers detect motion.
+Which is the safest way to store acquired data?,Random folders|Secure database|Loose sheets|Open USB drive,1,Databases secure data.
+What is the full form of IoT?,Internet of Tools|Internet of Things|Internal Operating Technology|International Online Transfer,1,IoT stands for Internet of Things.
+Which of these collects heart rate?,GPS|Thermometer|Heart-rate sensor|Camera,2,Heart-rate sensors track pulse.
+What kind of data does a text file contain?,Numerical only|Categorical only|Textual information|Sensor waves,2,Text files store text.
+Which device collects sound waves?,Speaker|Camera|Microphone|Monitor,2,Microphones capture sound.
+What is the goal of data acquisition?,To visualize data|To collect useful data|To delete old data|To sort data,1,Goal is to gather useful data.
+Which method is slow but detailed for data collection?,Sensor-based|Manual|Automated|Machine learning,1,Manual methods are slow but detailed.
